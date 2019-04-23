@@ -11,22 +11,22 @@ class Petrovich
     const CASE_ACCUSATIVE    = 2; //винительный
     const CASE_INSTRUMENTAL  = 3; //творительный
     const CASE_PREPOSITIONAL = 4; //предложный
+    const DEFAULT_CASE       = self::CASE_NOMENATIVE;
 
     const GENDER_ANDROGYNOUS = 0; // Пол не определен
     const GENDER_MALE        = 1; // Мужской
     const GENDER_FEMALE      = 2; // Женский
+    const DEFAULT_GENDER     = self::GENDER_ANDROGYNOUS;
 
-    private $gender = Petrovich::GENDER_ANDROGYNOUS; //Пол male/мужской female/женский
+    private $gender = self::DEFAULT_GENDER; //Пол male/мужской female/женский
 
     /**
-     * Petrovich constructor.
-     *
      * @param int    $gender
      * @param string $rules_dir
      *
      * @throws Exception
      */
-    public function __construct($gender = Petrovich::GENDER_ANDROGYNOUS, $rules_dir = __DIR__ . '/../vendor/petrovich/petrovich-rules')
+    public function __construct($gender = self::DEFAULT_GENDER, $rules_dir = __DIR__ . '/../vendor/petrovich/petrovich-rules')
     {
         $rules_path = $rules_dir . '/rules.json';
         $rules_resourse = fopen($rules_path, 'r');
@@ -41,7 +41,7 @@ class Petrovich
 
         $this->rules = get_object_vars(json_decode($rules_array));
 
-        if (isset($gender) && $gender != Petrovich::GENDER_ANDROGYNOUS) {
+        if (isset($gender) && $gender != self::GENDER_ANDROGYNOUS) {
             $this->gender = $gender;
         }
     }
@@ -63,18 +63,18 @@ class Petrovich
 
         switch (mb_substr(mb_strtolower($middlename), -4)) {
             case 'оглы':
-                    return Petrovich::GENDER_MALE;
+                    return self::GENDER_MALE;
             case 'кызы':
-                    return Petrovich::GENDER_FEMALE;
+                    return self::GENDER_FEMALE;
         }
 
         switch (mb_substr(mb_strtolower($middlename), -2)) {
             case 'ич':
-                    return Petrovich::GENDER_MALE;
+                    return self::GENDER_MALE;
             case 'на':
-                    return Petrovich::GENDER_FEMALE;
+                    return self::GENDER_FEMALE;
             default:
-                    return Petrovich::GENDER_ANDROGYNOUS;
+                    return self::GENDER_ANDROGYNOUS;
         }
     }
 
@@ -88,13 +88,13 @@ class Petrovich
      *
      * @throws Exception
      */
-    public function firstname($firstname, $case = Petrovich::CASE_NOMENATIVE)
+    public function firstname($firstname, $case = self::DEFAULT_CASE)
     {
         if (empty($firstname)) {
             throw new Exception('Firstname cannot be empty.');
         }
 
-        if ($case === Petrovich::CASE_NOMENATIVE) {
+        if ($case === self::CASE_NOMENATIVE) {
             return $firstname;
         }
 
@@ -111,13 +111,13 @@ class Petrovich
      *
      * @throws Exception
      */
-    public function middlename($middlename, $case = Petrovich::CASE_NOMENATIVE)
+    public function middlename($middlename, $case = self::DEFAULT_CASE)
     {
         if (empty($middlename)) {
             throw new Exception('Middlename cannot be empty.');
         }
 
-        if ($case === Petrovich::CASE_NOMENATIVE) {
+        if ($case === self::CASE_NOMENATIVE) {
             return $middlename;
         }
 
@@ -134,13 +134,13 @@ class Petrovich
      *
      * @throws Exception
      */
-    public function lastname($lastname, $case = Petrovich::CASE_NOMENATIVE)
+    public function lastname($lastname, $case = self::DEFAULT_CASE)
     {
         if (empty($lastname)) {
             throw new Exception('Lastname cannot be empty.');
         }
 
-        if ($case === Petrovich::CASE_NOMENATIVE) {
+        if ($case === self::CASE_NOMENATIVE) {
             return $lastname;
         }
 
@@ -250,8 +250,9 @@ class Petrovich
      */
     private function applyRule($mods, $name, $case)
     {
-        $result = mb_substr($name, 0, mb_strlen($name) - mb_substr_count($mods[$case], '-'));
+        $result  = mb_substr($name, 0, mb_strlen($name) - mb_substr_count($mods[$case], '-'));
         $result .= str_replace('-', '', $mods[$case]);
+
         return $result;
     }
 
@@ -266,13 +267,13 @@ class Petrovich
     {
         switch ($gender) {
             case 'male':
-                    return Petrovich::GENDER_MALE;
+                    return self::GENDER_MALE;
             case 'female':
-                    return Petrovich::GENDER_FEMALE;
+                    return self::GENDER_FEMALE;
             case 'androgynous':
-                    return Petrovich::GENDER_ANDROGYNOUS;
+                    return self::GENDER_ANDROGYNOUS;
             default:
-                    return Petrovich::GENDER_ANDROGYNOUS;
+                    return self::DEFAULT_GENDER;
         }
     }
 
@@ -285,6 +286,6 @@ class Petrovich
      */
     private function checkGender($gender)
     {
-        return $this->gender === $this->getGender($gender) || $this->getGender($gender) === Petrovich::GENDER_ANDROGYNOUS;
+        return $this->gender === $this->getGender($gender) || $this->getGender($gender) === self::GENDER_ANDROGYNOUS;
     }
 }
