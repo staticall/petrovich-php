@@ -10,12 +10,10 @@ class DetectGenderTest extends TestCase
 {
     public function testEmptyMiddleName()
     {
-        $petrovich = new Petrovich();
-
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Middlename cannot be empty');
 
-        $petrovich->detectGender('');
+        Petrovich::detectGender('');
     }
 
     public function testGenderless()
@@ -25,10 +23,8 @@ class DetectGenderTest extends TestCase
             'тест',
         ];
 
-        $petrovich = new Petrovich();
-
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich::GENDER_ANDROGYNOUS, $petrovich->detectGender($middleName));
+            static::assertSame(Petrovich::GENDER_ANDROGYNOUS, Petrovich::detectGender($middleName));
         }
     }
 }

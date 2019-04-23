@@ -55,7 +55,7 @@ class Petrovich
      *
      * @throws Exception
      */
-    public function detectGender($middlename)
+    static public function detectGender($middlename)
     {
         if (empty($middlename)) {
             throw new Exception('Middlename cannot be empty');

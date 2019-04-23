@@ -42,7 +42,7 @@ $firstname = "Александр";
 $middlename = "Сергеевич";
 $lastname = "Пушкин";
 
-echo $petrovich->detectGender("Петровна");	// Petrovich::GENDER_FEMALE (см. пункт Пол)
+echo Staticall\Petrovich::detectGender("Петровна");	// Petrovich::GENDER_FEMALE (см. пункт Пол)
 
 echo '<br /><strong>Родительный падеж:</strong><br />';
 echo $petrovich->firstname($firstname, Petrovich::CASE_GENITIVE).'<br />'; //	Александра
