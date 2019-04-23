@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/staticall/petrovich-php.svg?branch=master)](https://secure.travis-ci.org/staticall/petrovich-php)
+
 ![Petrovich](https://raw.github.com/rocsci/petrovich/master/petrovich.png)
 
 Склонение падежей русских имён, фамилий и отчеств.
