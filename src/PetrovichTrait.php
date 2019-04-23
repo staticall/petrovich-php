@@ -1,29 +1,34 @@
 <?php
+namespace Staticall;
 
-trait Trait_Petrovich {
-
+trait PetrovichTrait
+{
     public $firstname; // Александр
     public $middlename; // Сергеевич
     public $lastname; // Пушкин
     
     public $gender;
     
-	private $petrovich;
+    private $petrovich;
 
     /**
      * Задаём имя и слоняем его
      *
-     * @param $case
+     * @param int $case
+     *
      * @return bool|string
-     * @throws \ErrorException
+     *
+     * @throws Exception
      */
-    public function firstname($case = Petrovich::CASE_NOMENATIVE) {
+    public function firstname($case = Petrovich::CASE_NOMENATIVE)
+    {
         if ($case === Petrovich::CASE_NOMENATIVE) {
             return $this->firstname;
         }
 
-        if (!isset($this->petrovich))
+        if (!isset($this->petrovich)) {
             $this->petrovich = new Petrovich($this->gender);
+        }
 
         return $this->petrovich->firstname($this->firstname,$case);
     }
@@ -31,17 +36,21 @@ trait Trait_Petrovich {
     /**
      * Задём отчество и склоняем его
      *
-     * @param $case
+     * @param int $case
+     *
      * @return bool|string
-     * @throws \ErrorException
+     *
+     * @throws Exception
      */
-    public function middlename($case = Petrovich::CASE_NOMENATIVE) {
+    public function middlename($case = Petrovich::CASE_NOMENATIVE)
+    {
         if ($case === Petrovich::CASE_NOMENATIVE) {
             return $this->middlename;
         }
 
-        if (!isset($this->petrovich))
+        if (!isset($this->petrovich)) {
             $this->petrovich = new Petrovich($this->gender);
+        }
 
         return $this->petrovich->middlename($this->middlename,$case);
     }
@@ -49,17 +58,21 @@ trait Trait_Petrovich {
     /**
      * Задаём фамилию и слоняем её
      *
-     * @param $case
+     * @param int $case
+     *
      * @return bool|string
-     * @throws \ErrorException
+     *
+     * @throws \Exception
      */
-    public function lastname($case = Petrovich::CASE_NOMENATIVE) {
+    public function lastname($case = Petrovich::CASE_NOMENATIVE)
+    {
         if ($case === Petrovich::CASE_NOMENATIVE) {
             return $this->lastname;
         }
 
-        if (!isset($this->petrovich))
+        if (!isset($this->petrovich)) {
             $this->petrovich = new Petrovich($this->gender);
+        }
 
         return $this->petrovich->lastname($this->lastname,$case);
     }

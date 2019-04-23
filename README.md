@@ -6,41 +6,37 @@
 
 Лицензия MIT
 
-## Пример
-
-https://github.com/parshikov/petrovich-php-example
-
 ##Установка
 
-Для работы требуется PHP >= 5.3
+Для работы требуется PHP >= 5.6
 
 Загрузите файлы в папку с библиотеками на сервере.
 
 ```bash
 cd lib
-git clone https://github.com/petrovich/petrovich-php.git petrovich-php
+git clone https://github.com/staticall/petrovich-php.git petrovich-php
 ```
 
 если вы хотите использовать ```petrovich``` как submodule,
 
 ```bash
-git submodule add --init https://github.com/petrovich/petrovich-php.git lib/petrovich-php
+git submodule add --init https://github.com/staticall/petrovich-php.git lib/petrovich-php
 ```
 
 или просто скачайте исходный код со страницы проекта на Github.
 
 ##Использование
 
-В библиотеку входит класс ```Petrovich``` и trait ```Trait_Petrovich```
+В библиотеку входит класс ```Petrovich``` и trait ```PetrovichTrait```
 
 ### Использование класса
 
 ```php
 mb_internal_encoding('UTF-8');
 
-require_once('path-to-lib/petrovich-php/Petrovich.php');
+require_once('path-to-lib/petrovich-php/src/Petrovich.php');
 
-$petrovich = new Petrovich(Petrovich::GENDER_MALE);
+$petrovich = new Staticall\Petrovich(Petrovich::GENDER_MALE);
 
 $firstname = "Александр";
 $middlename = "Сергеевич";
@@ -70,11 +66,12 @@ Trait содержит в себе
 ```php
 mb_internal_encoding('UTF-8');
 
-require_once('path-to-lib/petrovich-php/Petrovich.php');
-require_once('path-to-lib/petrovich-php/Trait/Petrovich.php');
-	
-class User {
-	use Trait_Petrovich;
+require_once('path-to-lib/petrovich-php/src/Petrovich.php');
+require_once('path-to-lib/petrovich-php/src/PetrovichTrait.php');
+
+class User
+{
+    use Staticall\PetrovichTrait;
 }
 
 $user = new User();

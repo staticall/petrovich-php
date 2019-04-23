@@ -1,0 +1,48 @@
+{
+    "name": "staticall/petrovich-php",
+    "description": "provides a nested object property based user interface for accessing this configuration data within application code",
+    "license": "MIT",
+    "keywords": [
+        "petrovich",
+        "declination",
+        "russian"
+    ],
+    "support": {
+        "issues": "https://github.com/staticall/petrovich-php/issues",
+        "source": "https://github.com/staticall/petrovich-php"
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+
+        "ext-json": "*",
+
+        "petrovich/petrovich-rules": "~1.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.7.27"
+    },
+    "autoload": {
+        "psr-4": {
+            "Staticall\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "StaticallTest\\": "test/"
+        }
+    },
+    "repositories": {
+        "petrovich-rules": {
+            "type":    "package",
+            "package": {
+                "name":    "petrovich/petrovich-rules",
+                "version": "1.0.0",
+                "source":  {
+                    "url":       "https://github.com/petrovich/petrovich-rules",
+                    "type":      "git",
+                    "reference": "master"
+                }
+            }
+        }
+    }
+}
