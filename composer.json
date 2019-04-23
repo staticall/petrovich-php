@@ -31,12 +31,12 @@
             "StaticallTest\\": "test/"
         }
     },
-    "repositories": {
-        "petrovich-rules": {
+    "repositories": [
+        {
             "type":    "package",
             "package": {
                 "name":    "petrovich/petrovich-rules",
-                "version": "dev-master",
+                "version": "1.0.0",
                 "source":  {
                     "url":       "https://github.com/petrovich/petrovich-rules",
                     "type":      "git",
@@ -44,7 +44,7 @@
                 }
             }
         }
-    },
+    ],
     "scripts": {
         "test":          "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
