@@ -49,7 +49,7 @@ class Petrovich
     /**
      * Определяет пол по отчеству
      *
-     * @param $middlename
+     * @param string $middlename
      *
      * @return int
      *
@@ -81,10 +81,10 @@ class Petrovich
     /**
      * Задаём имя и слоняем его
      *
-     * @param $firstname
-     * @param $case
+     * @param string $firstname
+     * @param int    $case
      *
-     * @return bool|string
+     * @return string
      *
      * @throws Exception
      */
@@ -104,10 +104,10 @@ class Petrovich
     /**
      * Задём отчество и склоняем его
      *
-     * @param $middlename
-     * @param $case
+     * @param string $middlename
+     * @param int    $case
      *
-     * @return bool|string
+     * @return string
      *
      * @throws Exception
      */
@@ -127,10 +127,10 @@ class Petrovich
     /**
      * Задаём фамилию и слоняем её
      *
-     * @param $lastname
-     * @param $case
+     * @param string $lastname
+     * @param int    $case
      *
-     * @return bool|string
+     * @return string
      *
      * @throws Exception
      */
@@ -148,25 +148,24 @@ class Petrovich
     }
 
     /**
-     * Функция проверяет заданное имя,фамилию или отчество на исключение
-     * и склоняет
+     * Функция проверяет заданное имя,фамилию или отчество на исключение и склоняет
      *
-     * @param $name
-     * @param $case
-     * @param $type
+     * @param string $name
+     * @param int    $case
+     * @param string $type
      *
-     * @return bool|string
+     * @return string
      */
     private function inflect($name, $case, $type)
     {
-        $names_arr = explode('-', $name);
+        $names  = explode('-', $name);
         $result = [];
 
-        foreach ($names_arr as $arr_name) {
-            if (($exception = $this->checkException($arr_name, $case, $type)) !== false) {
+        foreach ($names as $namePart) {
+            if (($exception = $this->checkException($namePart, $case, $type)) !== false) {
                 $result[] = $exception;
             } else {
-                $result[] = $this->findInRules($arr_name, $case, $type);
+                $result[] = $this->findInRules($namePart, $case, $type);
             }
         }
 
@@ -176,9 +175,9 @@ class Petrovich
     /**
      * Поиск в массиве правил
      *
-     * @param $name
-     * @param $case
-     * @param $type
+     * @param string $name
+     * @param int    $case
+     * @param string $type
      *
      * @return string
      */
@@ -208,9 +207,9 @@ class Petrovich
     /**
      * Проверка на совпадение в исключениях
      *
-     * @param $name
-     * @param $case
-     * @param $type
+     * @param string $name
+     * @param int    $case
+     * @param string $type
      *
      * @return bool|string
      */
@@ -227,13 +226,15 @@ class Petrovich
                 continue;
             }
 
-            if (array_search($lower_name, $rule->test) !== false) {
-                if ($rule->mods[$case] === '.') {
-                    return $name;
-                }
-
-                return $this->applyRule($rule->mods, $name, $case);
+            if (array_search($lower_name, $rule->test) === false) {
+                continue;
             }
+
+            if ($rule->mods[$case] === '.') {
+                return $name;
+            }
+
+            return $this->applyRule($rule->mods, $name, $case);
         }
 
         return false;
@@ -242,13 +243,13 @@ class Petrovich
     /**
      * Склоняем заданное слово
      *
-     * @param $mods
-     * @param $name
-     * @param $case
+     * @param array  $mods
+     * @param string $name
+     * @param int    $case
      *
      * @return string
      */
-    private function applyRule($mods, $name, $case)
+    private function applyRule(array $mods, $name, $case)
     {
         $result  = mb_substr($name, 0, mb_strlen($name) - mb_substr_count($mods[$case], '-'));
         $result .= str_replace('-', '', $mods[$case]);
@@ -259,9 +260,9 @@ class Petrovich
     /**
      * Преобразует строковое обозначение пола в числовое
      *
-     * @param string
+     * @param string|int
      *
-     * @return integer
+     * @return int
      */
     private function getGender($gender)
     {
@@ -286,6 +287,6 @@ class Petrovich
      */
     private function checkGender($gender)
     {
-        return $this->gender === $this->getGender($gender) || $this->getGender($gender) === self::GENDER_ANDROGYNOUS;
+        return $this->gender === $this->getGender($gender) || $this->getGender($gender) === self::DEFAULT_GENDER;
     }
 }
