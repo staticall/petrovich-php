@@ -29,17 +29,17 @@ class Petrovich
     public function __construct($gender = self::DEFAULT_GENDER, $rules_dir = __DIR__ . '/../vendor/petrovich/petrovich-rules')
     {
         $rules_path = $rules_dir . '/rules.json';
-        $rules_resourse = fopen($rules_path, 'r');
+        $rules_resourse = \fopen($rules_path, 'r');
 
         if ($rules_resourse == false) {
             throw new Exception('Rules file not found.');
         }
 
-        $rules_array = fread($rules_resourse, filesize($rules_path));
+        $rules_array = \fread($rules_resourse, \filesize($rules_path));
 
-        fclose($rules_resourse);
+        \fclose($rules_resourse);
 
-        $this->rules = get_object_vars(json_decode($rules_array));
+        $this->rules = \get_object_vars(\json_decode($rules_array));
 
         if (isset($gender) && $gender != self::GENDER_ANDROGYNOUS) {
             $this->gender = $gender;
@@ -61,14 +61,14 @@ class Petrovich
             throw new Exception('Middlename cannot be empty');
         }
 
-        switch (mb_substr(mb_strtolower($middlename), -4)) {
+        switch (\mb_substr(\mb_strtolower($middlename), -4)) {
             case 'оглы':
                     return self::GENDER_MALE;
             case 'кызы':
                     return self::GENDER_FEMALE;
         }
 
-        switch (mb_substr(mb_strtolower($middlename), -2)) {
+        switch (\mb_substr(\mb_strtolower($middlename), -2)) {
             case 'ич':
                     return self::GENDER_MALE;
             case 'на':
@@ -158,7 +158,7 @@ class Petrovich
      */
     private function inflect($name, $case, $type)
     {
-        $names  = explode('-', $name);
+        $names  = \explode('-', $name);
         $result = [];
 
         foreach ($names as $namePart) {
@@ -169,7 +169,7 @@ class Petrovich
             }
         }
 
-        return implode('-', $result);
+        return \implode('-', $result);
     }
 
     /**
@@ -189,7 +189,7 @@ class Petrovich
             }
 
             foreach ($rule->test as $last_char) {
-                $last_name_char = mb_substr($name, mb_strlen($name) - mb_strlen($last_char), mb_strlen($last_char));
+                $last_name_char = \mb_substr($name, \mb_strlen($name) - \mb_strlen($last_char), \mb_strlen($last_char));
 
                 if ($last_char == $last_name_char) {
                     if ($rule->mods[$case] === '.') {
@@ -219,14 +219,14 @@ class Petrovich
             return false;
         }
 
-        $lower_name = mb_strtolower($name);
+        $lower_name = \mb_strtolower($name);
 
         foreach ($this->rules[$type]->exceptions as $rule) {
             if (!$this->checkGender($rule->gender)) {
                 continue;
             }
 
-            if (array_search($lower_name, $rule->test) === false) {
+            if (\array_search($lower_name, $rule->test) === false) {
                 continue;
             }
 
@@ -251,8 +251,8 @@ class Petrovich
      */
     private function applyRule(array $mods, $name, $case)
     {
-        $result  = mb_substr($name, 0, mb_strlen($name) - mb_substr_count($mods[$case], '-'));
-        $result .= str_replace('-', '', $mods[$case]);
+        $result  = \mb_substr($name, 0, \mb_strlen($name) - \mb_substr_count($mods[$case], '-'));
+        $result .= \str_replace('-', '', $mods[$case]);
 
         return $result;
     }
