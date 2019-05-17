@@ -51,6 +51,55 @@ class Petrovich
         return $this->ruleset;
     }
 
+    public function inflectFullName(string $fullName, string $gender = null) : string
+    {
+        $parsed = static::parseFullName($fullName);
+
+        if ($gender === null) {
+            $gender = static::detectGender($parsed['middleName']);
+        }
+
+        return \implode(
+            ' ',
+
+            [
+                $this->inflectLastName($parsed['lastName'], $gender),
+                $this->inflectFirstName($parsed['firstName'], $gender),
+                $this->inflectMiddleName($parsed['middleName'], $gender),
+            ]
+        );
+    }
+
+    public function inflectFirstName(string $firstName, string $gender = null) : string
+    {
+        return $this->ruleset->inflectFirstName($firstName, $gender);
+    }
+
+    public function inflectMiddleName(string $middleName, string $gender = null) : string
+    {
+        return $this->ruleset->inflectMiddleName($middleName, $gender ?? static::detectGender($middleName));
+    }
+
+    public function inflectLastName(string $lastName, string $gender = null) : string
+    {
+        return $this->ruleset->inflectLastName($lastName, $gender);
+    }
+
+    public static function parseFullName(string $fullName) : array
+    {
+        $nameParts = \explode(' ', $fullName);
+
+        $lastName   = \array_shift($nameParts);
+        $middleName = \array_pop($nameParts);
+        $firstName  = \implode(' ', $nameParts);
+
+        return [
+            'lastName'   => $lastName,
+            'firstName'  => $firstName,
+            'middleName' => $middleName,
+        ];
+    }
+
     /**
      * Определяет пол по отчеству
      *
