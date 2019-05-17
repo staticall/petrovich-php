@@ -1,4 +1,5 @@
 [![Build Status](https://secure.travis-ci.org/staticall/petrovich-php.svg?branch=master)](https://secure.travis-ci.org/staticall/petrovich-php)
+[![Coverage Status](https://coveralls.io/repos/github/staticall/petrovich-php/badge.svg?branch=master)](https://coveralls.io/github/staticall/petrovich-php?branch=master)
 
 ![Petrovich](https://raw.github.com/rocsci/petrovich/master/petrovich.png)
 

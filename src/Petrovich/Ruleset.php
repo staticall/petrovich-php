@@ -88,6 +88,10 @@ class Ruleset
 
             foreach ($rule as $item) {
                 foreach ($item as $itemData) {
+                    if (\is_array($itemData) === false) {
+                        return false;
+                    }
+
                     foreach (\array_keys($itemData) as $ruleValueKey) {
                         if (\in_array($ruleValueKey, $availableValueKeys, true) === false) {
                             return false;
