@@ -16,9 +16,10 @@ class Loader
      * @param string|null $fileType
      * @param bool        $shouldValidate
      *
-     * @return array
-     *
+     * @return Ruleset
+     * @throws IOException
      * @throws RuntimeException
+     * @throws ValidationException
      */
     public static function load(string $filePath, ?string $fileType = null, bool $shouldValidate = false) : Ruleset
     {
