@@ -1,9 +1,14 @@
 <?php
-namespace Staticall;
+namespace Staticall\Petrovich;
+
+use Staticall\Petrovich\Petrovich\Ruleset;
 
 class Petrovich
 {
-    private $rules; //Правила
+    /**
+     * @var Ruleset
+     */
+    private $ruleset;
 
     const CASE_NOMENATIVE    = -1; //именительный
     const CASE_GENITIVE      = 0; //родительный
@@ -18,32 +23,32 @@ class Petrovich
     const GENDER_FEMALE      = 2; // Женский
     const DEFAULT_GENDER     = self::GENDER_ANDROGYNOUS;
 
-    private $gender = self::DEFAULT_GENDER; //Пол male/мужской female/женский
+    /**
+     * @param Ruleset $ruleset
+     */
+    public function __construct(Ruleset $ruleset)
+    {
+        $this->setRuleset($ruleset);
+    }
 
     /**
-     * @param int    $gender
-     * @param string $rules_dir
+     * @param Ruleset $ruleset
      *
-     * @throws Exception
+     * @return Petrovich
      */
-    public function __construct($gender = self::DEFAULT_GENDER, $rules_dir = __DIR__ . '/../vendor/petrovich/petrovich-rules')
+    public function setRuleset(Ruleset $ruleset) : Petrovich
     {
-        $rules_path = $rules_dir . '/rules.json';
-        $rules_resourse = \fopen($rules_path, 'r');
+        $this->ruleset = $ruleset;
 
-        if ($rules_resourse == false) {
-            throw new Exception('Rules file not found.');
-        }
+        return $this;
+    }
 
-        $rules_array = \fread($rules_resourse, \filesize($rules_path));
-
-        \fclose($rules_resourse);
-
-        $this->rules = \get_object_vars(\json_decode($rules_array));
-
-        if (isset($gender) && $gender != self::GENDER_ANDROGYNOUS) {
-            $this->gender = $gender;
-        }
+    /**
+     * @return Ruleset
+     */
+    public function getRuleset() : Ruleset
+    {
+        return $this->ruleset;
     }
 
     /**
@@ -55,7 +60,7 @@ class Petrovich
      *
      * @throws Exception
      */
-    static public function detectGender($middlename)
+    public static function detectGender(string $middlename)
     {
         if (empty($middlename)) {
             throw new Exception('Middlename cannot be empty');
@@ -63,18 +68,18 @@ class Petrovich
 
         switch (\mb_substr(\mb_strtolower($middlename), -4)) {
             case 'оглы':
-                    return self::GENDER_MALE;
+                return static::GENDER_MALE;
             case 'кызы':
-                    return self::GENDER_FEMALE;
+                return static::GENDER_FEMALE;
         }
 
         switch (\mb_substr(\mb_strtolower($middlename), -2)) {
             case 'ич':
-                    return self::GENDER_MALE;
+                return static::GENDER_MALE;
             case 'на':
-                    return self::GENDER_FEMALE;
+                return static::GENDER_FEMALE;
             default:
-                    return self::GENDER_ANDROGYNOUS;
+                return static::GENDER_ANDROGYNOUS;
         }
     }
 
@@ -268,13 +273,13 @@ class Petrovich
     {
         switch ($gender) {
             case 'male':
-                    return self::GENDER_MALE;
+                return self::GENDER_MALE;
             case 'female':
-                    return self::GENDER_FEMALE;
+                return self::GENDER_FEMALE;
             case 'androgynous':
-                    return self::GENDER_ANDROGYNOUS;
+                return self::GENDER_ANDROGYNOUS;
             default:
-                    return self::DEFAULT_GENDER;
+                return self::DEFAULT_GENDER;
         }
     }
 

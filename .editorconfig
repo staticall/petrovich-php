@@ -1,0 +1,15 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = LF
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+[*.{php,yml,json,xml,md}]
+indent_style = space
+indent_size = 4
+
+[*.{php}]
+quote_type = single
+curly_bracket_next_line = false

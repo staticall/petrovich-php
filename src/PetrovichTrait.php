@@ -1,14 +1,15 @@
 <?php
-namespace Staticall;
+
+namespace Staticall\Petrovich;
 
 trait PetrovichTrait
 {
-    public $firstname; // Александр
-    public $middlename; // Сергеевич
-    public $lastname; // Пушкин
-    
+    public $firstname;
+    public $middlename;
+    public $lastname;
+
     public $gender;
-    
+
     private $petrovich;
 
     /**
@@ -30,7 +31,7 @@ trait PetrovichTrait
             $this->petrovich = new Petrovich($this->gender);
         }
 
-        return $this->petrovich->firstname($this->firstname,$case);
+        return $this->petrovich->firstname($this->firstname, $case);
     }
 
     /**
@@ -52,7 +53,7 @@ trait PetrovichTrait
             $this->petrovich = new Petrovich($this->gender);
         }
 
-        return $this->petrovich->middlename($this->middlename,$case);
+        return $this->petrovich->middlename($this->middlename, $case);
     }
 
     /**
@@ -74,6 +75,6 @@ trait PetrovichTrait
             $this->petrovich = new Petrovich($this->gender);
         }
 
-        return $this->petrovich->lastname($this->lastname,$case);
+        return $this->petrovich->lastname($this->lastname, $case);
     }
 }

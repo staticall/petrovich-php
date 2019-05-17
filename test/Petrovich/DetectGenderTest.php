@@ -1,10 +1,10 @@
 <?php
-namespace StaticallTest\Petrovich;
+namespace StaticallTest\Petrovich\Petrovich;
 
 use PHPUnit\Framework\TestCase;
 
-use Staticall\Petrovich;
-use Staticall\Exception;
+use Staticall\Petrovich\Petrovich;
+use Staticall\Petrovich\Exception;
 
 class DetectGenderTest extends TestCase
 {
