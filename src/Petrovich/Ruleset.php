@@ -1,6 +1,8 @@
 <?php
 namespace Staticall\Petrovich\Petrovich;
 
+use Staticall\Petrovich\Petrovich\Ruleset\Validator;
+
 class Ruleset
 {
     const ROOT_KEY_FIRSTNAME  = 'firstname';
@@ -84,6 +86,10 @@ class Ruleset
      */
     public function validate(array $rules) : bool
     {
+        $validator = new Validator();
+
+        return $validator->validate($rules);
+
         $availableRootKeys   = static::getAvailableRootKeys();
         $availableSecondKeys = static::getAvailableSecondKeys();
         $availableValueKeys  = static::getAvailableValueKeys();
