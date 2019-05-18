@@ -8,6 +8,14 @@ use Staticall\Petrovich\Petrovich\Ruleset;
 
 class LoadRealTest extends TestCase
 {
+    public function testGetVendorShouldReturnSameRules()
+    {
+        $expected = $this->getRuleFilePath('rules.json');
+        $testable = Loader::getVendorRulesFilePath(Loader::FILE_TYPE_JSON);
+
+        static::assertSame(realpath($expected), realpath($testable));
+    }
+
     public function testLoadCorrectJsonRules()
     {
         $filePath = $this->getRuleFilePath('rules.json');

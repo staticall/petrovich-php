@@ -19,7 +19,7 @@
 
 ##Установка
 
-Для работы требуется PHP >= 7.2
+Для работы требуется PHP >= 7.1.3
 
 Загрузите файлы в папку с библиотеками на сервере.
 
@@ -28,17 +28,11 @@ cd lib
 git clone https://github.com/staticall/petrovich-php.git petrovich-php
 ```
 
-если вы хотите использовать ```petrovich``` как submodule,
-
-```bash
-git submodule add --init https://github.com/staticall/petrovich-php.git lib/petrovich-php
-```
-
 или просто скачайте исходный код со страницы проекта на Github.
 
 ##Использование
 
-В библиотеку входит класс ```Petrovich``` и trait ```PetrovichTrait```
+В библиотеку входит класс ```Petrovich```
 
 ### Использование класса
 
@@ -47,53 +41,18 @@ mb_internal_encoding('UTF-8');
 
 require_once('path-to-lib/petrovich-php/src/Petrovich.php');
 
-$petrovich = new Staticall\Petrovich(Petrovich::GENDER_MALE);
+$petrovich = new Staticall\Petrovich(Staticall\Petrovich\Loader::load(Staticall\Petrovich\Loader::getVendorRulesFilePath()));
 
-$firstname = "Александр";
-$middlename = "Сергеевич";
-$lastname = "Пушкин";
+$firstname  = 'Александр';
+$middlename = 'Сергеевич';
+$lastname   = 'Пушкин';
 
-echo Staticall\Petrovich::detectGender("Петровна");	// Petrovich::GENDER_FEMALE (см. пункт Пол)
+echo Staticall\Petrovich::detectGender('Петровна');	// Petrovich::GENDER_FEMALE (см. пункт Пол)
 
 echo '<br /><strong>Родительный падеж:</strong><br />';
-echo $petrovich->firstname($firstname, Petrovich::CASE_GENITIVE).'<br />'; //	Александра
-echo $petrovich->middlename($middlename, Petrovich::CASE_GENITIVE).'<br />'; //	Сергеевича
-echo $petrovich->lastname($lastname, Petrovich::CASE_GENITIVE).'<br />'; //		Пушкина
-```
-
-### Использование trait'а
-
-Trait содержит в себе
-* Свойства
-  * ```firstname```
-  * ```middlename```
-  * ```lastname```
-  * ```gender```
-* Методы
-  * ```firstname($case)```
-  * ```middlename($case)```
-  * ```lastname($case)```
-
-```php
-mb_internal_encoding('UTF-8');
-
-require_once('path-to-lib/petrovich-php/src/Petrovich.php');
-require_once('path-to-lib/petrovich-php/src/PetrovichTrait.php');
-
-class User
-{
-    use Staticall\PetrovichTrait;
-}
-
-$user = new User();
-
-$user->lastname = "Пушкин";
-$user->firstname = "Александр";
-$user->middlename = "Сергеевич";
-
-$user->firstname(Petrovich::CASE_GENITIVE);	// Пушкина
-$user->lastname(Petrovich::CASE_GENITIVE);	// Александра
-$user->middlename(Petrovich::CASE_GENITIVE);	// Сергеевича
+echo $petrovich->inflectFirstname($firstname, Petrovich::CASE_GENITIVE, Petrovich::GENDER_MALE).'<br />'; // Александра
+echo $petrovich->inflectMiddlename($middlename, Petrovich::CASE_GENITIVE, Petrovich::GENDER_MALE).'<br />'; // Сергеевича
+echo $petrovich->inflectLastname($lastname, Petrovich::CASE_GENITIVE, Petrovich::GENDER_MALE).'<br />'; // Пушкина
 ```
 
 ## Падежи
@@ -109,7 +68,8 @@ $user->middlename(Petrovich::CASE_GENITIVE);	// Сергеевича
 | CASE_PREPOSITIONAL  | предложный   | О ком? О чём?          |
 
 ## Пол
-Метод ```Petrovich::detectGender``` возвращает пол, на основе отчества. Возвращаемое значение не зависит от пола, переданного в конструктор.
+Метод ```Petrovich::detectGender``` возвращает пол, на основе отчества. Поскольку нормальное определение пола возможно только через отчество, рекомендуется вручную передавать пол в каждый метод
+
 Для полов определены следующие константы
 * GENDER_ANDROGYNOUS - пол не определен;
 * GENDER_MALE - мужской пол;

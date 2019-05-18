@@ -4,6 +4,7 @@
 /.phpunit*
 
 /vendor/
+/build/
 
 /.idea/
 /nbproject/

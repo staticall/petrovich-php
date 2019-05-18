@@ -24,7 +24,7 @@ class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich::GENDER_ANDROGYNOUS, Petrovich::detectGender($middleName));
+            static::assertSame(Petrovich\Ruleset::GENDER_ANDROGYNOUS, Petrovich::detectGender($middleName));
         }
     }
 
@@ -149,7 +149,7 @@ class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich::GENDER_FEMALE, Petrovich::detectGender($middleName));
+            static::assertSame(Petrovich\Ruleset::GENDER_FEMALE, Petrovich::detectGender($middleName));
         }
     }
 
@@ -232,7 +232,7 @@ class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich::GENDER_MALE, Petrovich::detectGender($middleName));
+            static::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName));
         }
     }
 }

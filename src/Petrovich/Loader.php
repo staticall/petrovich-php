@@ -125,4 +125,9 @@ class Loader
             static::FILE_TYPE_YML,
         ];
     }
+
+    public static function getVendorRulesFilePath(string $type = self::FILE_TYPE_JSON)
+    {
+        return __DIR__ . '/../../vendor/cloudloyalty/petrovich-rules/rules.' . $type;
+    }
 }

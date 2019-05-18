@@ -19,6 +19,19 @@ class Ruleset
     const GENDER_MALE        = 'male';
     const GENDER_FEMALE      = 'female';
 
+    const MOD_INITIAL = '.';
+
+    const CASE_NOMENATIVE    = -1; //именительный
+    const CASE_GENITIVE      = 0; //родительный
+    const CASE_DATIVE        = 1; //дательный
+    const CASE_ACCUSATIVE    = 2; //винительный
+    const CASE_INSTRUMENTAL  = 3; //творительный
+    const CASE_PREPOSITIONAL = 4; //предложный
+    const DEFAULT_CASE       = self::CASE_NOMENATIVE;
+
+    /**
+     * @var array List of parsed Petrovich rules
+     */
     private $rules = [];
 
     /**
@@ -62,6 +75,9 @@ class Ruleset
     }
 
     /**
+     * Performs basic validation over provided rules
+     * Useful for testing and/or any format changes
+     *
      * @param array $rules
      *
      * @return bool
@@ -175,7 +191,7 @@ class Ruleset
     }
 
     /**
-     * Returns all availabe genders
+     * Returns all available genders
      *
      * @return array
      */
@@ -186,5 +202,199 @@ class Ruleset
             static::GENDER_MALE,
             static::GENDER_FEMALE,
         ];
+    }
+
+    /**
+     * Returns all available cases
+     *
+     * @return array
+     */
+    public static function getAvailableCases() : array
+    {
+        return [
+            static::CASE_NOMENATIVE,
+            static::CASE_GENITIVE,
+            static::CASE_DATIVE,
+            static::CASE_ACCUSATIVE,
+            static::CASE_INSTRUMENTAL,
+            static::CASE_PREPOSITIONAL,
+        ];
+    }
+
+    /**
+     * @param string $lastName
+     * @param int    $case
+     * @param string $gender
+     *
+     * @return string
+     */
+    public function inflectLastName(string $lastName, int $case, string $gender) : string
+    {
+        return $this->inflect($lastName, $case, $gender, $this->getRules()[static::ROOT_KEY_LASTNAME]);
+    }
+
+    /**
+     * @param string $firstName
+     * @param int    $case
+     * @param string $gender
+     *
+     * @return string
+     */
+    public function inflectFirstName(string $firstName, int $case, string $gender) : string
+    {
+        return $this->inflect($firstName, $case, $gender, $this->getRules()[static::ROOT_KEY_FIRSTNAME]);
+    }
+
+    /**
+     * @param string $middleName
+     * @param int    $case
+     * @param string $gender
+     *
+     * @return string
+     */
+    public function inflectMiddleName(string $middleName, int $case, string $gender) : string
+    {
+        return $this->inflect($middleName, $case, $gender, $this->getRules()[static::ROOT_KEY_MIDDLENAME]);
+    }
+
+    /**
+     * @param string $input
+     * @param int    $case
+     * @param string $gender
+     * @param array  $rule
+     *
+     * @return string
+     */
+    public function inflect(string $input, int $case, string $gender, array $rule) : string
+    {
+        if ($case === static::CASE_NOMENATIVE) {
+            // Because Petrovich does not provide a case for nomenative case, because it's useless
+            return $input;
+        }
+
+        $inputParts = \explode('-', $input);
+        $result     = [];
+
+        foreach ($inputParts as $inputPart) {
+            if ($this->isInExceptions($inputPart, $case, $gender, $rule) === true) {
+                $result[] = $this->getException($inputPart, $case, $gender, $rule);
+
+                continue;
+            }
+
+            $result[] = $this->findMatchingRule($inputPart, $case, $gender, $rule);
+        }
+
+        return \implode('-', $result);
+    }
+
+    /**
+     * @param string $input
+     * @param int    $case
+     * @param string $gender
+     * @param array  $rule
+     *
+     * @return string
+     */
+    protected function findMatchingRule(
+        string $input,
+        int $case,
+        string $gender,
+        array $rule
+    ) : string
+    {
+        if (empty($rule[static::SECOND_KEY_SUFFIXES])) {
+            return $input;
+        }
+
+        $inputLowercase = \mb_strtolower($input);
+
+        foreach ($rule[static::SECOND_KEY_SUFFIXES] as $toTest) {
+            if ($toTest[static::VALUE_KEY_GENDER] !== $gender) {
+                continue;
+            }
+
+            foreach ($toTest[static::VALUE_KEY_TEST] as $ending) {
+                $inputEnding = \mb_substr(
+                    $inputLowercase,
+                    \mb_strlen($input) - \mb_strlen($ending),
+                    \mb_strlen($ending)
+                );
+
+                if ($ending === $inputEnding) {
+                    if ($toTest[static::VALUE_KEY_MODS][$case] === static::MOD_INITIAL) {
+                        return $input;
+                    }
+
+                    return $this->applyRule($toTest[static::VALUE_KEY_MODS][$case], $input);
+                }
+            }
+        }
+
+        return $input;
+    }
+
+    /**
+     * Checks if current rule is in exceptions
+     *
+     * @param string $input
+     * @param int    $case
+     * @param string $gender
+     * @param array  $rule
+     *
+     * @return bool
+     */
+    protected function isInExceptions(string $input, int $case, string $gender, array $rule) : bool
+    {
+        return $this->getException($input, $case, $gender, $rule) !== null;
+    }
+
+    /**
+     * @param string $input
+     * @param int    $case
+     * @param string $gender
+     * @param array  $rule
+     *
+     * @return string|null
+     */
+    protected function getException(string $input, int $case, string $gender, array $rule) : ?string
+    {
+        if (empty($rule[static::SECOND_KEY_EXCEPTIONS])) {
+            return null;
+        }
+
+        $inputLowercase = \mb_strtolower($input);
+
+        foreach ($rule[static::SECOND_KEY_EXCEPTIONS] as $exception) {
+            if ($exception[static::VALUE_KEY_GENDER] !== $gender) {
+                continue;
+            }
+
+            if (\in_array($inputLowercase, $exception[static::VALUE_KEY_TEST], true) === false) {
+                continue;
+            }
+
+            if ($exception[static::VALUE_KEY_MODS][$case] === static::MOD_INITIAL) {
+                return $input;
+            }
+
+            return $this->applyRule($exception[static::VALUE_KEY_MODS][$case], $input);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $mod
+     * @param string $input
+     *
+     * @return string
+     */
+    protected function applyRule(string $mod, string $input) : string
+    {
+        $result  = \mb_substr($input, 0, \mb_strlen($input) - \mb_substr_count($mod, '-'));
+        $result .= \str_replace('-', '', $mod);
+
+        return $result;
     }
 }
