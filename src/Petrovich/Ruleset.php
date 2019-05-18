@@ -89,69 +89,6 @@ class Ruleset
         $validator = new Validator();
 
         return $validator->validate($rules);
-
-        $availableRootKeys   = static::getAvailableRootKeys();
-        $availableSecondKeys = static::getAvailableSecondKeys();
-        $availableValueKeys  = static::getAvailableValueKeys();
-        $availableGenders    = static::getAvailableGenders();
-
-        foreach (\array_keys($rules) as $key) {
-            if (\in_array($key, $availableRootKeys, true) === false) {
-                return false;
-            }
-        }
-
-        foreach ($rules as $rule) {
-            foreach (\array_keys($rule) as $ruleSecondKey) {
-                if (\in_array($ruleSecondKey, $availableSecondKeys, true) === false) {
-                    return false;
-                }
-            }
-
-            foreach ($rule as $item) {
-                foreach ($item as $itemData) {
-                    if (\is_array($itemData) === false) {
-                        return false;
-                    }
-
-                    foreach (\array_keys($itemData) as $ruleValueKey) {
-                        if (\in_array($ruleValueKey, $availableValueKeys, true) === false) {
-                            return false;
-                        }
-                    }
-
-                    if (\array_key_exists(static::VALUE_KEY_TEST, $itemData)) {
-                        if (\is_array($itemData[static::VALUE_KEY_TEST]) === false) {
-                            return false;
-                        }
-                    }
-
-                    if (\array_key_exists(static::VALUE_KEY_MODS, $itemData)) {
-                        if (\is_array($itemData[static::VALUE_KEY_MODS]) === false) {
-                            return false;
-                        }
-                    }
-
-                    if (\array_key_exists(static::VALUE_KEY_TAGS, $itemData)) {
-                        if (\is_array($itemData[static::VALUE_KEY_TAGS]) === false) {
-                            return false;
-                        }
-                    }
-
-                    if (\array_key_exists(static::VALUE_KEY_GENDER, $itemData)) {
-                        if (\is_string($itemData[static::VALUE_KEY_GENDER]) === false) {
-                            return false;
-                        }
-
-                        if (\in_array($itemData[static::VALUE_KEY_GENDER], $availableGenders) === false) {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-
-        return true;
     }
 
     /**
