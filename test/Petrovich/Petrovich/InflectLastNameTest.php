@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class InflectLastnameTest extends TestCase
+class InflectLastNameTest extends TestCase
 {
     public function testMale()
     {

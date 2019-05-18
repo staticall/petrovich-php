@@ -235,4 +235,34 @@ class DetectGenderTest extends TestCase
             static::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName));
         }
     }
+
+    public function testMaleExceptionOgli()
+    {
+        $middleNames = [
+            'Октай',
+            'Али',
+            'Анна',
+            'Евграфий',
+            'Жожоба',
+        ];
+
+        foreach ($middleNames as $middleName) {
+            static::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName . ' оглы'));
+        }
+    }
+
+    public function testFemaleExceptionOgli()
+    {
+        $middleNames = [
+            'Октай',
+            'Али',
+            'Анна',
+            'Евграфий',
+            'Жожоба',
+        ];
+
+        foreach ($middleNames as $middleName) {
+            static::assertSame(Petrovich\Ruleset::GENDER_FEMALE, Petrovich::detectGender($middleName . ' кызы'));
+        }
+    }
 }
