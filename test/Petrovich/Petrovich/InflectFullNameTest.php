@@ -7,6 +7,66 @@ use Staticall\Petrovich\Petrovich;
 
 class InflectFullNameTest extends TestCase
 {
+    public function testWithoutMiddleNameRules()
+    {
+        $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
+
+        $rules = $ruleset->getRules();
+
+        unset($rules[Petrovich\Ruleset::ROOT_KEY_MIDDLENAME]);
+
+        $ruleset->setRules($rules, false);
+
+        $petrovich = new Petrovich($ruleset);
+
+        $name = 'Барбарисов Сигизмунд Петрович';
+
+        $this->expectException(Petrovich\RuntimeException::class);
+        $this->expectExceptionMessage('Missing key "' . Petrovich\Ruleset::ROOT_KEY_MIDDLENAME . '" for inflection');
+
+        $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
+    }
+
+    public function testWithoutFirstNameRules()
+    {
+        $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
+
+        $rules = $ruleset->getRules();
+
+        unset($rules[Petrovich\Ruleset::ROOT_KEY_FIRSTNAME]);
+
+        $ruleset->setRules($rules, false);
+
+        $petrovich = new Petrovich($ruleset);
+
+        $name = 'Барбарисов Сигизмунд Петрович';
+
+        $this->expectException(Petrovich\RuntimeException::class);
+        $this->expectExceptionMessage('Missing key "' . Petrovich\Ruleset::ROOT_KEY_FIRSTNAME . '" for inflection');
+
+        $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
+    }
+
+    public function testWithoutLastNameRules()
+    {
+        $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
+
+        $rules = $ruleset->getRules();
+
+        unset($rules[Petrovich\Ruleset::ROOT_KEY_LASTNAME]);
+
+        $ruleset->setRules($rules, false);
+
+        $petrovich = new Petrovich($ruleset);
+
+        $name = 'Барбарисов Сигизмунд Петрович';
+
+        $this->expectException(Petrovich\RuntimeException::class);
+        $this->expectExceptionMessage('Missing key "' . Petrovich\Ruleset::ROOT_KEY_LASTNAME . '" for inflection');
+
+        $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
+    }
+
     public function testMale()
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));

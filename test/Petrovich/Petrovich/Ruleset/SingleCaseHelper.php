@@ -1,5 +1,4 @@
 <?php
-
 namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
 use PHPUnit\Framework\TestCase;
@@ -8,6 +7,19 @@ use Staticall\Petrovich\Petrovich\Ruleset;
 
 class SingleCaseHelper extends TestCase
 {
+    public function getMods(array $overwrite = [])
+    {
+        $default = [
+            '--ьва',
+            '--ьву',
+            '--ьва',
+            '--ьвом',
+            '--ьве',
+        ];
+
+        return $default + $overwrite;
+    }
+
     public function runTestNoExceptionsNoSuffixes(
         string $input,
         string $expected,
@@ -35,7 +47,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -65,7 +78,7 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $testableGender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ]
@@ -77,7 +90,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -107,7 +121,7 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $testableGender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ]
@@ -119,7 +133,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -137,7 +152,7 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ]
@@ -149,7 +164,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -171,7 +187,7 @@ class SingleCaseHelper extends TestCase
         $exceptions[] = [
             Ruleset::VALUE_KEY_GENDER => $gender,
             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
         ];
 
         static::assertSame(
@@ -193,7 +209,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -211,14 +228,14 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                     Ruleset::SECOND_KEY_SUFFIXES   => [
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ]
@@ -230,7 +247,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -248,14 +266,14 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                     Ruleset::SECOND_KEY_EXCEPTIONS => [
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ]
@@ -267,7 +285,8 @@ class SingleCaseHelper extends TestCase
         string $input,
         string $expected,
         int $case,
-        string $gender
+        string $gender,
+        array $additionalMods = []
     )
     {
         $ruleset = new Ruleset([], false);
@@ -285,7 +304,7 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
-                            Ruleset::VALUE_KEY_MODS   => ['--ьва', '--ьву', '--ьва', '--ьвом', '--ьве'],
+                            Ruleset::VALUE_KEY_MODS   => $this->getMods($additionalMods),
                         ],
                     ],
                 ],

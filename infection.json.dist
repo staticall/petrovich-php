@@ -1,0 +1,36 @@
+{
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+
+    "timeout": 10,
+
+    "logs": {
+        "text":       "build/infection.log",
+        "summary":    "build/summary.log",
+        "perMutator": "build/per-mutator.md",
+
+        "badge": {
+            "branch": "master"
+        }
+    },
+
+    "tmpDir": "/build/temp",
+
+    "mutators": {
+        "@default": true,
+        "@function_signature": false,
+        "TrueValue": {
+            "ignore": [
+                "NameSpace\\*\\Class::method"
+            ]
+        }
+    },
+
+    "testFramework":          "phpunit",
+    "bootstrap":              "./test/bootstrap.php",
+    "initialTestsPhpOptions": "-d zend_extension=xdebug.so",
+    "testFrameworkOptions":   "-vvv"
+}

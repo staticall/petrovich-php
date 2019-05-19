@@ -1,5 +1,5 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Loader;
+namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
 use PHPUnit\Framework\TestCase;
 

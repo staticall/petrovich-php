@@ -2,7 +2,7 @@
 
 ![Petrovich](https://raw.github.com/rocsci/petrovich/master/petrovich.png)
 
-[![Build Status](https://secure.travis-ci.org/staticall/petrovich-php.svg?branch=master)](https://secure.travis-ci.org/staticall/petrovich-php) [![Coverage Status](https://coveralls.io/repos/github/staticall/petrovich-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/staticall/petrovich-php?branch=master) [![Latest Stable Version](https://poser.pugx.org/staticall/petrovich-php/v/stable)](https://packagist.org/packages/staticall/petrovich-php)
+[![Build Status](https://secure.travis-ci.org/staticall/petrovich-php.svg?branch=master)](https://secure.travis-ci.org/staticall/petrovich-php) [![Coverage Status](https://coveralls.io/repos/github/staticall/petrovich-php/badge.svg?branch=master&service=github)](https://coveralls.io/github/staticall/petrovich-php?branch=master) [![Latest Stable Version](https://poser.pugx.org/staticall/petrovich-php/v/stable)](https://packagist.org/packages/staticall/petrovich-php) [![Code Quality](https://scrutinizer-ci.com/g/staticall/petrovich-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/staticall/petrovich-php/?branch=master)
 
 Склонение падежей русских имён, фамилий и отчеств. Портированная версия с [Ruby](https://github.com/petrovich/petrovich-ruby) на PHP, использует [официальные правила](https://github.com/petrovich/petrovich-rules)
 

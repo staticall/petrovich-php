@@ -38,6 +38,18 @@ class Petrovich
         return $this->ruleset;
     }
 
+    /**
+     * Inflects full name, format must be:
+     * LastName FirstName MiddleName
+     *
+     * @param string      $fullName Full name, separated by a single space, format: LastName FirstName MiddleName
+     * @param int         $case     Case constant
+     * @param string|null $gender   Gender constant
+     *
+     * @return string
+     *
+     * @throws Exception
+     */
     public function inflectFullName(string $fullName, int $case, string $gender = null) : string
     {
         $parsed = static::parseFullName($fullName);
@@ -57,17 +69,50 @@ class Petrovich
         );
     }
 
-    public function inflectFirstName(string $firstName, int $case, string $gender = null) : string
+    /**
+     * Inflects first name only
+     *
+     * @param string $firstName
+     * @param int    $case
+     * @param string $gender
+     *
+     * @return string
+     *
+     * @throws Petrovich\RuntimeException
+     */
+    public function inflectFirstName(string $firstName, int $case, string $gender) : string
     {
         return $this->ruleset->inflectFirstName($firstName, $case, $gender);
     }
 
+    /**
+     * Inflects middle name only
+     *
+     * @param string      $middleName
+     * @param int         $case
+     * @param string|null $gender
+     *
+     * @return string
+     *
+     * @throws Exception
+     */
     public function inflectMiddleName(string $middleName, int $case, string $gender = null) : string
     {
         return $this->ruleset->inflectMiddleName($middleName, $case, $gender ?? static::detectGender($middleName));
     }
 
-    public function inflectLastName(string $lastName, int $case, string $gender = null) : string
+    /**
+     * Inflects last name only
+     *
+     * @param string $lastName
+     * @param int    $case
+     * @param string $gender
+     *
+     * @return string
+     *
+     * @throws Petrovich\RuntimeException
+     */
+    public function inflectLastName(string $lastName, int $case, string $gender) : string
     {
         return $this->ruleset->inflectLastName($lastName, $case, $gender);
     }

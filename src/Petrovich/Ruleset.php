@@ -31,6 +31,8 @@ class Ruleset
     const CASE_PREPOSITIONAL = 4; //предложный
     const DEFAULT_CASE       = self::CASE_NOMENATIVE;
 
+    const DEFAULT_DELIMITER = '-';
+
     /**
      * @var array List of parsed Petrovich rules
      */
@@ -168,36 +170,78 @@ class Ruleset
      * @param string $lastName
      * @param int    $case
      * @param string $gender
+     * @param string $delimiter
      *
      * @return string
+     *
+     * @throws RuntimeException
      */
-    public function inflectLastName(string $lastName, int $case, string $gender) : string
+    public function inflectLastName(
+        string $lastName,
+        int $case,
+        string $gender,
+        string $delimiter = self::DEFAULT_DELIMITER
+    ) : string
     {
-        return $this->inflect($lastName, $case, $gender, $this->getRules()[static::ROOT_KEY_LASTNAME]);
+        $rules = $this->getRules();
+
+        if (empty($rules[static::ROOT_KEY_LASTNAME])) {
+            throw new RuntimeException('Missing key "' . static::ROOT_KEY_LASTNAME . '" for inflection');
+        }
+
+        return $this->inflect($lastName, $case, $gender, $rules[static::ROOT_KEY_LASTNAME], $delimiter);
     }
 
     /**
      * @param string $firstName
      * @param int    $case
      * @param string $gender
+     * @param string $delimiter
      *
      * @return string
+     *
+     * @throws RuntimeException
      */
-    public function inflectFirstName(string $firstName, int $case, string $gender) : string
+    public function inflectFirstName(
+        string $firstName,
+        int $case,
+        string $gender,
+        string $delimiter = self::DEFAULT_DELIMITER
+    ) : string
     {
-        return $this->inflect($firstName, $case, $gender, $this->getRules()[static::ROOT_KEY_FIRSTNAME]);
+        $rules = $this->getRules();
+
+        if (empty($rules[static::ROOT_KEY_FIRSTNAME])) {
+            throw new RuntimeException('Missing key "' . static::ROOT_KEY_FIRSTNAME . '" for inflection');
+        }
+
+        return $this->inflect($firstName, $case, $gender, $rules[static::ROOT_KEY_FIRSTNAME], $delimiter);
     }
 
     /**
      * @param string $middleName
      * @param int    $case
      * @param string $gender
+     * @param string $delimiter
      *
      * @return string
+     *
+     * @throws RuntimeException
      */
-    public function inflectMiddleName(string $middleName, int $case, string $gender) : string
+    public function inflectMiddleName(
+        string $middleName,
+        int $case,
+        string $gender,
+        string $delimiter = self::DEFAULT_DELIMITER
+    ) : string
     {
-        return $this->inflect($middleName, $case, $gender, $this->getRules()[static::ROOT_KEY_MIDDLENAME]);
+        $rules = $this->getRules();
+
+        if (empty($rules[static::ROOT_KEY_MIDDLENAME])) {
+            throw new RuntimeException('Missing key "' . static::ROOT_KEY_MIDDLENAME . '" for inflection');
+        }
+
+        return $this->inflect($middleName, $case, $gender, $rules[static::ROOT_KEY_MIDDLENAME], $delimiter);
     }
 
     /**
@@ -205,17 +249,24 @@ class Ruleset
      * @param int    $case
      * @param string $gender
      * @param array  $rule
+     * @param string $delimiter
      *
      * @return string
      */
-    public function inflect(string $input, int $case, string $gender, array $rule) : string
+    public function inflect(
+        string $input,
+        int $case,
+        string $gender,
+        array $rule,
+        string $delimiter = self::DEFAULT_DELIMITER
+    ) : string
     {
         if ($case === static::CASE_NOMENATIVE) {
             // Because Petrovich does not provide a case for nomenative case, because it's useless
             return $input;
         }
 
-        $inputParts = \explode('-', $input);
+        $inputParts = \explode($delimiter, $input);
         $result     = [];
 
         foreach ($inputParts as $inputPart) {

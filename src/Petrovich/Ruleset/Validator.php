@@ -40,6 +40,13 @@ class Validator
         return true;
     }
 
+    /**
+     * Validates all available root keys
+     *
+     * @param array $rules
+     *
+     * @return bool
+     */
     public function validateRootKeys(array $rules) : bool
     {
         $availableKeys = Petrovich\Ruleset::getAvailableRootKeys();
@@ -66,25 +73,12 @@ class Validator
         return true;
     }
 
-    public function validateValueKeys(array $rule)
+    public function validateValueKeys(array $rule) : bool
     {
-        $availableKeys    = Petrovich\Ruleset::getAvailableValueKeys();
-        $availableGenders = Petrovich\Ruleset::getAvailableGenders();
+        $availableKeys = Petrovich\Ruleset::getAvailableValueKeys();
 
         foreach (\array_keys($rule) as $ruleValueKey) {
             if (\in_array($ruleValueKey, $availableKeys, true) === false) {
-                return false;
-            }
-        }
-
-        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_TEST, $rule)) {
-            if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_TEST]) === false) {
-                return false;
-            }
-        }
-
-        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_MODS, $rule)) {
-            if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_MODS]) === false) {
                 return false;
             }
         }
@@ -95,14 +89,74 @@ class Validator
             }
         }
 
-        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_GENDER, $rule)) {
-            if (\is_string($rule[Petrovich\Ruleset::VALUE_KEY_GENDER]) === false) {
-                return false;
-            }
+        if (
+            $this->validateValueKeyTest($rule) === false
+            ||
+            $this->validateValueKeyMods($rule) === false
+            ||
+            $this->validateValueKeyTags($rule) === false
+            ||
+            $this->validateValueKeyGender($rule) === false
+        ) {
+            return false;
+        }
 
-            if (\in_array($rule[Petrovich\Ruleset::VALUE_KEY_GENDER], $availableGenders) === false) {
-                return false;
-            }
+        return true;
+    }
+
+    public function validateValueKeyTest(array $rule) : bool
+    {
+        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_TEST, $rule) === false) {
+            return true;
+        }
+
+        if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_TEST]) === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function validateValueKeyMods(array $rule) : bool
+    {
+        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_MODS, $rule) === false) {
+            return true;
+        }
+
+        if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_MODS]) === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function validateValueKeyTags(array $rule) : bool
+    {
+        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_TAGS, $rule) === false) {
+            return true;
+        }
+
+        if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_TAGS]) === false) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function validateValueKeyGender(array $rule) : bool
+    {
+        $availableGenders = Petrovich\Ruleset::getAvailableGenders();
+
+        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_GENDER, $rule) === false) {
+            return true;
+        }
+
+        if (\is_string($rule[Petrovich\Ruleset::VALUE_KEY_GENDER]) === false) {
+            return false;
+        }
+
+        if (\in_array($rule[Petrovich\Ruleset::VALUE_KEY_GENDER], $availableGenders) === false) {
+            return false;
         }
 
         return true;
