@@ -83,12 +83,6 @@ class Validator
             }
         }
 
-        if (\array_key_exists(Petrovich\Ruleset::VALUE_KEY_TAGS, $rule)) {
-            if (\is_array($rule[Petrovich\Ruleset::VALUE_KEY_TAGS]) === false) {
-                return false;
-            }
-        }
-
         if (
             $this->validateValueKeyTest($rule) === false
             ||
