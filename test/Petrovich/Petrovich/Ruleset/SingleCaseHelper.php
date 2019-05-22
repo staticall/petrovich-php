@@ -12,7 +12,7 @@ class SingleCaseHelper extends TestCase
         $default = [
             '--ьва',
             '--ьву',
-            '--ьва',
+            '--ъва',
             '--ьвом',
             '--ьве',
         ];
@@ -336,6 +336,43 @@ class SingleCaseHelper extends TestCase
                         [
                             Ruleset::VALUE_KEY_GENDER => $gender,
                             Ruleset::VALUE_KEY_TEST   => [mb_strtolower($input)],
+                            Ruleset::VALUE_KEY_MODS   => [
+                                Ruleset::MOD_INITIAL,
+                                Ruleset::MOD_INITIAL,
+                                Ruleset::MOD_INITIAL,
+                                Ruleset::MOD_INITIAL,
+                                Ruleset::MOD_INITIAL,
+                            ],
+                        ],
+                    ],
+                ]
+            )
+        );
+    }
+
+    public function runTestIncorrectInputShouldReturnInput(
+        string $input,
+        string $ruleInput,
+        string $expected,
+        int $case,
+        string $gender
+    )
+    {
+        $ruleset = new Ruleset([], false);
+
+        static::assertSame(
+            $expected,
+
+            $ruleset->inflect(
+                $input,
+                $case,
+                $gender,
+
+                [
+                    Ruleset::SECOND_KEY_SUFFIXES => [
+                        [
+                            Ruleset::VALUE_KEY_GENDER => $gender,
+                            Ruleset::VALUE_KEY_TEST   => [mb_strtolower($ruleInput)],
                             Ruleset::VALUE_KEY_MODS   => [
                                 Ruleset::MOD_INITIAL,
                                 Ruleset::MOD_INITIAL,

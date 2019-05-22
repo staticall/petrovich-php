@@ -59,4 +59,15 @@ class NomenativeAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestNoExceptionsHasSuffixesDotMod('Тест', 'Тест', static::THIS_CASE, static::THIS_GENDER);
     }
+
+    public function testIncorrectInputShouldReturnInput()
+    {
+        $this->runTestIncorrectInputShouldReturnInput(
+            'Неизвестно',
+            'Тест',
+            'Неизвестно',
+            static::THIS_CASE,
+            static::THIS_GENDER
+        );
+    }
 }
