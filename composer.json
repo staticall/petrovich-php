@@ -47,18 +47,22 @@
     "scripts": {
         "check": [
             "@cs-check",
-            "@test"
+            "@test",
+            "@mutation"
         ],
 
         "cs-check": "phpcs",
 
         "test":          "phpunit --colors=always",
-        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+        "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+
+        "mutation": "infection"
     },
     "scripts-descriptions": {
         "check":         "Executes both code-style check and tests",
         "cs-check":      "Executes code-style checks, based on 'phpcs.xml' ruleset",
         "test":          "Executes PHPUnit tests",
-        "test-coverage": "Executes PHPUnit tests with coverage enabled. Used in deployment"
+        "test-coverage": "Executes PHPUnit tests with coverage enabled. Used in deployment",
+        "mutation":      "Executes Infection mutation testing"
     }
 }
