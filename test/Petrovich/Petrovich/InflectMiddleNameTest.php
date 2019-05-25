@@ -105,4 +105,38 @@ class InflectMiddleNameTest extends TestCase
             }
         }
     }
+
+    public function testShouldCallDetectGenderOnlyIfNotProvided()
+    {
+        $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
+
+        $names = [
+            'Сергеевич' => [
+                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Сергеевич',
+                Petrovich\Ruleset::CASE_GENITIVE      => 'Сергеевич',
+                Petrovich\Ruleset::CASE_DATIVE        => 'Сергеевич',
+                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Сергеевич',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Сергеевич',
+                Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Сергеевич',
+            ],
+            'Сергеевна' => [
+                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Сергеевна',
+                Petrovich\Ruleset::CASE_GENITIVE      => 'Сергеевны',
+                Petrovich\Ruleset::CASE_DATIVE        => 'Сергеевне',
+                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Сергеевну',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Сергеевной',
+                Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Сергеевне',
+            ],
+        ];
+
+        foreach ($names as $input => $name) {
+            foreach (Petrovich\Ruleset::getAvailableCases() as $case) {
+                static::assertSame(
+                    $name[$case],
+                    $petrovich->inflectMiddleName($input, $case, Petrovich\Ruleset::GENDER_FEMALE),
+                    'Invalid casing of "' . $input . '" for "' . $case . '" case, expecting "' . $name[$case] . '"'
+                );
+            }
+        }
+    }
 }
