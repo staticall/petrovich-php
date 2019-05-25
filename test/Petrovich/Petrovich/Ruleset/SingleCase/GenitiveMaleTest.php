@@ -99,4 +99,15 @@ class GenitiveMaleTest extends SingleCaseHelper
             static::THIS_GENDER
         );
     }
+
+    public function testIncorrectInputShouldReturnInput()
+    {
+        $this->runTestIncorrectInputShouldReturnInput(
+            'Неизвестно',
+            'Тест',
+            'Неизвестно',
+            static::THIS_CASE,
+            static::THIS_GENDER
+        );
+    }
 }

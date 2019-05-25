@@ -5,10 +5,10 @@ use StaticallTest\Petrovich\Petrovich\Ruleset\SingleCaseHelper;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class GenitiveAndrogynousTest extends SingleCaseHelper
+class AccusativeFemaleTest extends SingleCaseHelper
 {
-    const THIS_CASE   = Ruleset::CASE_GENITIVE;
-    const THIS_GENDER = Ruleset::GENDER_ANDROGYNOUS;
+    const THIS_CASE   = Ruleset::CASE_ACCUSATIVE;
+    const THIS_GENDER = Ruleset::GENDER_FEMALE;
 
     public function testNoExceptionsNoSuffixes()
     {
@@ -44,7 +44,7 @@ class GenitiveAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestHasExceptionsCorrectGenderNoSuffixes(
             'Тест',
-            'Теьва',
+            'Теъва',
             static::THIS_CASE,
             static::THIS_GENDER
         );
@@ -54,7 +54,7 @@ class GenitiveAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestHasExceptionsCorrectGenderAfterIncorrectNoSuffixes(
             'Тест',
-            'Теьва',
+            'Теъва',
             static::THIS_CASE,
             static::THIS_GENDER
         );
@@ -64,7 +64,7 @@ class GenitiveAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestHasExceptionsAndSuffixes(
             'Тест',
-            'Теьва',
+            'Теъва',
             static::THIS_CASE,
             static::THIS_GENDER
         );
@@ -74,7 +74,7 @@ class GenitiveAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestHasExceptionsAndSuffixesReverseOrder(
             'Тест',
-            'Теьва',
+            'Теъва',
             static::THIS_CASE,
             static::THIS_GENDER
         );
@@ -84,7 +84,7 @@ class GenitiveAndrogynousTest extends SingleCaseHelper
     {
         $this->runTestNoExceptionsHasSuffixes(
             'Тест',
-            'Теьва',
+            'Теъва',
             static::THIS_CASE,
             static::THIS_GENDER
         );
