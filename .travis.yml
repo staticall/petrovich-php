@@ -54,6 +54,9 @@ install:
     - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
     - stty cols 120 && composer show
 
+before_script:
+    - cd project
+
 script:
     - if [[ $TEST_COVERAGE == 'true' ]]; then composer run-script test-coverage --timeout=400 -- --verbose ; else composer run-script test --timeout=300 -- --verbose ; fi
     - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
