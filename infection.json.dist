@@ -19,16 +19,6 @@
 
     "tmpDir": "/build/temp",
 
-    "mutators": {
-        "@default": true,
-        "@function_signature": false,
-        "TrueValue": {
-            "ignore": [
-                "NameSpace\\*\\Class::method"
-            ]
-        }
-    },
-
     "testFramework":          "phpunit",
     "bootstrap":              "./test/bootstrap.php",
     "initialTestsPhpOptions": "-d zend_extension=xdebug.so",

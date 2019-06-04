@@ -4,12 +4,13 @@ language: php
 
 cache:
     directories:
-        - $HOME/.composer/cache
+        - "$HOME/.composer/cache"
 
 env:
     global:
         - COMPOSER_ARGS="--no-interaction"
         - COVERAGE_DEPS="php-coveralls/php-coveralls"
+        - secure: Xi8atT1LP5hdc0IoqWM4ckR0awRvBOHE+JhghDAcp4WtTm1ljrag5b6UbiQ7p7ySRAGl+UrR5tXyRdkSsqTnSdgkaRRlO/VEhSl/Pmwagc9gZdSjtZAEybJpyQRkmk+yA11lDbYfYcOd+0I4+PBOvhf22rAi4a/mVHO8PBK5xdoLibfpyT9U+yE5T1IyiYEckF1dwcGtTrxhnI8xGaNgZifAfd0CGQYhHHZVVdwPMR+Wh8dfWA36kHjRO6buq+A2F5XRkjR3VzyjKZg7ErtrRnW3x/hmNs7O9/eEusWwz5HCoWmWX0gthxdbKrmXr5cJ9FV7w5I+jbPg/Br4ZKYyZ8YId+eCZnrKOPPJreMi9ei3PTjGDTKJSNyCK7NFgubK5WVwjtJnTDR+pEYwZjJp9dprXqDuQfcvEPFDsyvZ5OJfyJEiEH9DxffzSXUf/fEg4dbZ89eQ+qhn/WFUWchcKP+B1FIZo+G6FqdLQynVdbq2J3WXySb+qvu9Plgy80TfIihZ/+HaE0RxbLjXpvuwmriZe/h2Ite9F1KtObDbJ9PNfi8pFzg9MNYVy2DfP6LfXbv6v3jDi2f0Q+KQ6SR7dHM0YiLd14EuW91a2MHUAXoZafgdxyNN5fIRhLp+PrPPtxCek0IHHGvwN4oghsmV2mhXbo6li5HAJ6ezP/0yzvY=
 
 matrix:
     include:
@@ -29,6 +30,7 @@ matrix:
             env:
                 - DEPS=locked
                 - CS_CHECK=true
+                - MUTATION_CHECK=true
                 - TEST_COVERAGE=true
         -   php: 7.2
             env:
@@ -55,6 +57,7 @@ install:
 script:
     - if [[ $TEST_COVERAGE == 'true' ]]; then composer run-script test-coverage --timeout=400 -- --verbose ; else composer run-script test --timeout=300 -- --verbose ; fi
     - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
+    - if [[ $MUTATION_CHECK == 'true' ]]; then composer run-script mutation -- --configuration=infection.json.dist; fi
 
 after_script:
     - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry php vendor/bin/php-coveralls -v ; fi
