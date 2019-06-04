@@ -17,7 +17,7 @@
         }
     },
 
-    "tmpDir": "/build/temp",
+    "tmpDir": "build/temp",
 
     "testFramework":          "phpunit",
     "bootstrap":              "./test/bootstrap.php",
