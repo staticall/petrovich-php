@@ -12,7 +12,7 @@
 
 Для установке, добавьте данный пакет в зависимости *Composer*, либо вручную, либо используя следующую команду:
 
-``bash
+``
 composer require staticall/petrovich-php
 ``
 
@@ -23,13 +23,13 @@ composer require staticall/petrovich-php
 ```php
 mb_internal_encoding('UTF-8');
 
-require_once'path-to-vendor/autoload.php';
+require_once 'path-to-vendor/autoload.php';
 
-$petrovich = new Staticall\Petrovich(Staticall\Petrovich\Loader::load(Staticall\Petrovich\Loader::getVendorRulesFilePath()));
+$petrovich = new Staticall\Petrovich(Staticall\Petrovich\Loader::load('path-to-vendor/cloudloyalty/petrovich-rules/rules.json'));
 
 // Родительный падеж
-$lastNameGenitive = $petrovich->inflectLastName('Пушкин', Staticall\Petrovich\Ruleset::CASE_GENITIVE, Staticall\Petrovich\Ruleset::GENDER_MALE); // Пушкина
-$firstNameGenitive = $petrovich->inflectFirstName('Александр', Staticall\Petrovich\Ruleset::CASE_GENITIVE, Petrovich\Ruleset::GENDER_MALE); // Александра
+$lastNameGenitive   = $petrovich->inflectLastName('Пушкин', Staticall\Petrovich\Ruleset::CASE_GENITIVE, Staticall\Petrovich\Ruleset::GENDER_MALE); // Пушкина
+$firstNameGenitive  = $petrovich->inflectFirstName('Александр', Staticall\Petrovich\Ruleset::CASE_GENITIVE, Petrovich\Ruleset::GENDER_MALE); // Александра
 $middleNameGenitive = $petrovich->inflectMiddleName('Сергеевич', Staticall\Petrovich\Ruleset::CASE_GENITIVE, Staticall\Petrovich\Ruleset::GENDER_MALE); // Сергеевича
 ```
 
@@ -38,9 +38,9 @@ $middleNameGenitive = $petrovich->inflectMiddleName('Сергеевич', Static
 ```php
 mb_internal_encoding('UTF-8');
 
-require_once'path-to-vendor/autoload.php';
+require_once 'path-to-vendor/autoload.php';
 
-$petrovich = new Staticall\Petrovich(Staticall\Petrovich\Loader::load(Staticall\Petrovich\Loader::getVendorRulesFilePath()));
+$petrovich = new Staticall\Petrovich(Staticall\Petrovich\Loader::load('path-to-vendor/cloudloyalty/petrovich-rules/rules.json'));
 
 // Родительный падеж
 // Важно! На данный момент, такой порядок обязателен
@@ -52,9 +52,9 @@ $fullNameGenitive = $petrovich->inflectFullName('Пушкин Александр
 ```php
 mb_internal_encoding('UTF-8');
 
-require_once'path-to-vendor/autoload.php';
+require_once 'path-to-vendor/autoload.php';
 
-echo Staticall\Petrovich::detectGender('Петровна');	// Petrovich::GENDER_FEMALE (см. пункт Пол)
+echo Staticall\Petrovich::detectGender('Петровна'); // Petrovich::GENDER_FEMALE
 ```
 
 ## Версионирование
@@ -76,6 +76,7 @@ echo Staticall\Petrovich::detectGender('Петровна');	// Petrovich::GENDER
 - [petrovich/petrovich-rules](https://github.com/petrovich/petrovich-rules)
 - [cloudloyalty/petrovich-rules](https://github.com/cloudloyalty/petrovich-rules)
 - [symfony/yaml](https://github.com/symfony/yaml)
+- [infection/infection](https://github.com/infection/infection)
 - [sebastianbergmann/phpunit](https://github.com/sebastianbergmann/phpunit)
 - [squizlabs/php_codesniffer](https://github.com/squizlabs/php_codesniffer)
 - [Coveralls](https://coveralls.io/)
