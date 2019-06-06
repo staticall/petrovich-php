@@ -38,9 +38,18 @@ matrix:
         -   php: 7.3
             env:
                 - DEPS=latest
+        -   php: 7.4snapshot
+            env:
+                - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
+                - DEPS=latest
+        -   php: nightly
+            env:
+                - COMPOSER_ARGS="--no-interaction --ignore-platform-reqs"
+                - DEPS=latest
 
     allow_failures:
-        -   php: 7.3
+        -   php: 7.4snapshot
+        -   php: nightly
 
     fast_finish: true
 
