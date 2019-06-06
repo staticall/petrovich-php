@@ -83,19 +83,15 @@ class Validator
             }
         }
 
-        if (
-            $this->validateValueKeyTest($rule) === false
-            ||
-            $this->validateValueKeyMods($rule) === false
-            ||
-            $this->validateValueKeyTags($rule) === false
-            ||
-            $this->validateValueKeyGender($rule) === false
-        ) {
-            return false;
-        }
-
-        return true;
+        return
+            $this->validateValueKeyTest($rule) === true
+            &&
+            $this->validateValueKeyMods($rule) === true
+            &&
+            $this->validateValueKeyTags($rule) === true
+            &&
+            $this->validateValueKeyGender($rule) === true
+        ;
     }
 
     public function validateValueKeyTest(array $rule) : bool
