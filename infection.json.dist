@@ -21,6 +21,5 @@
 
     "testFramework":          "phpunit",
     "bootstrap":              "./test/bootstrap.php",
-    "initialTestsPhpOptions": "-d zend_extension=xdebug.so",
     "testFrameworkOptions":   "-vvv"
 }
