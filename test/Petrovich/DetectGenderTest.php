@@ -11,7 +11,7 @@ class DetectGenderTest extends TestCase
     public function testEmptyMiddleName()
     {
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('Middlename cannot be empty');
+        $this->expectExceptionMessage('Middle name cannot be empty');
 
         Petrovich::detectGender('');
     }

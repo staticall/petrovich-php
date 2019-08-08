@@ -136,4 +136,25 @@ class ParseFullNameTest extends TestCase
             static::assertSame($expected, Petrovich::parseFullName($input));
         }
     }
+
+    public function testNoMiddleName()
+    {
+        $dataset = [
+            'Фамилия Имя' => [
+                'lastName'   => 'Фамилия',
+                'firstName'  => 'Имя',
+                'middleName' => null,
+            ],
+
+            'Фамилия-Фамилия2 Имя' => [
+                'lastName'   => 'Фамилия-Фамилия2',
+                'firstName'  => 'Имя',
+                'middleName' => null,
+            ],
+        ];
+
+        foreach ($dataset as $input => $expected) {
+            static::assertSame($expected, Petrovich::parseFullName($input));
+        }
+    }
 }

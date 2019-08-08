@@ -55,7 +55,22 @@ class Petrovich
         $parsed = static::parseFullName($fullName);
 
         if ($gender === null) {
-            $gender = static::detectGender($parsed['middleName']);
+            $gender = Ruleset::GENDER_ANDROGYNOUS;
+
+            if ($parsed['middleName'] !== null) {
+                $gender = static::detectGender($parsed['middleName']);
+            }
+        }
+
+        if ($parsed['middleName'] === null) {
+            return \implode(
+                ' ',
+
+                [
+                    $this->inflectLastName($parsed['lastName'], $case, $gender),
+                    $this->inflectFirstName($parsed['firstName'], $case, $gender),
+                ]
+            );
         }
 
         return \implode(
@@ -125,6 +140,12 @@ class Petrovich
         $middleName = \array_pop($nameParts);
         $firstName  = \implode(' ', $nameParts);
 
+        if (empty($firstName)) {
+            $firstName = $middleName;
+
+            $middleName = null;
+        }
+
         return [
             'lastName'   => $lastName,
             'firstName'  => $firstName,
@@ -135,26 +156,26 @@ class Petrovich
     /**
      * Определяет пол по отчеству
      *
-     * @param string $middlename
+     * @param string $middleName
      *
      * @return string
      *
      * @throws Exception
      */
-    public static function detectGender(string $middlename)
+    public static function detectGender(string $middleName)
     {
-        if (empty($middlename)) {
-            throw new Exception('Middlename cannot be empty');
+        if (empty($middleName)) {
+            throw new Exception('Middle name cannot be empty');
         }
 
-        switch (\mb_substr(\mb_strtolower($middlename), -4)) {
+        switch (\mb_substr(\mb_strtolower($middleName), -4)) {
             case 'оглы':
                 return Ruleset::GENDER_MALE;
             case 'кызы':
                 return Ruleset::GENDER_FEMALE;
         }
 
-        switch (\mb_substr(\mb_strtolower($middlename), -2)) {
+        switch (\mb_substr(\mb_strtolower($middleName), -2)) {
             case 'ич':
                 return Ruleset::GENDER_MALE;
             case 'на':
