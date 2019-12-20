@@ -51,10 +51,18 @@ class Validator
     {
         $availableKeys = Petrovich\Ruleset::getAvailableRootKeys();
 
+        $isFoundAnyAvailableKeys = false;
+
         foreach (\array_keys($rules) as $key) {
             if (\in_array($key, $availableKeys, true) === false) {
                 return false;
             }
+
+            $isFoundAnyAvailableKeys = true;
+        }
+
+        if ($isFoundAnyAvailableKeys === false) {
+            return false;
         }
 
         return true;
