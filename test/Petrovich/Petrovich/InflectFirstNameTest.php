@@ -92,7 +92,7 @@ class InflectFirstNameTest extends TestCase
                 Petrovich\Ruleset::CASE_GENITIVE      => 'Ильи',
                 Petrovich\Ruleset::CASE_DATIVE        => 'Илье',
                 Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Илью',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Ильей',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Ильёй',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Илье',
             ],
 
