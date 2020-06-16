@@ -68,6 +68,11 @@ class Loader
      */
     public static function loadYml(string $filePath, bool $shouldValidate = false) : Ruleset
     {
+        if (!class_exists(Yaml::class)) {
+            // @codeCoverageIgnoreStart
+            throw new RuntimeException('Unable to load ruleset. Install symfony/yaml package');
+            // @codeCoverageIgnoreEnd
+        }
         $rules = Yaml::parseFile($filePath);
 
         return new Ruleset($rules, $shouldValidate);
