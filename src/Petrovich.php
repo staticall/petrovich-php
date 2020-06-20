@@ -138,6 +138,9 @@ class Petrovich
 
         $lastName   = \array_shift($nameParts);
         $middleName = \array_pop($nameParts);
+        if (\count($nameParts) > 1 && \in_array($middleName, ['оглы', 'кызы'])) {
+            $middleName = \array_pop($nameParts) . ' ' . $middleName;
+        }
         $firstName  = \implode(' ', $nameParts);
 
         if (empty($firstName)) {
