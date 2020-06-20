@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class RulesetAndConstructTest extends TestCase
+final class RulesetAndConstructTest extends TestCase
 {
-    public function testConstructShouldStoreRuleset()
+    public function testConstructShouldStoreRuleset() : void
     {
         $ruleset = new Petrovich\Ruleset([], false);
 
@@ -16,7 +16,7 @@ class RulesetAndConstructTest extends TestCase
         static::assertSame($ruleset, $petrovich->getRuleset());
     }
 
-    public function testSetterShouldStoreRuleset()
+    public function testSetterShouldStoreRuleset() : void
     {
         $rulesetConstruct = new Petrovich\Ruleset([], false);
         $rulesetSetter    = new Petrovich\Ruleset([], false);

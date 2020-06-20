@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class InflectFirstNameTest extends TestCase
+final class InflectFirstNameTest extends TestCase
 {
-    public function testWithoutFirstNameRules()
+    public function testWithoutFirstNameRules() : void
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
 
@@ -27,7 +27,7 @@ class InflectFirstNameTest extends TestCase
         $petrovich->inflectFirstName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
-    public function testMale()
+    public function testMale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -216,7 +216,7 @@ class InflectFirstNameTest extends TestCase
         }
     }
 
-    public function testFemale()
+    public function testFemale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -323,7 +323,7 @@ class InflectFirstNameTest extends TestCase
         }
     }
 
-    public function testAndrogynous()
+    public function testAndrogynous() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 

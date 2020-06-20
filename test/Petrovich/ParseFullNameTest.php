@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class ParseFullNameTest extends TestCase
+final class ParseFullNameTest extends TestCase
 {
-    public function testCorrectSplit()
+    public function testCorrectSplit(): void
     {
         $dataset = [
             'Тестов Тест Тестович' => [
@@ -35,7 +35,7 @@ class ParseFullNameTest extends TestCase
         }
     }
 
-    public function testDoubleName()
+    public function testDoubleName(): void
     {
         $dataset = [
             'Фамилия Адам - Борислав Отчество' => [
@@ -86,7 +86,7 @@ class ParseFullNameTest extends TestCase
         }
     }
 
-    public function testTripleNameBecausePeopleAreWeird()
+    public function testTripleNameBecausePeopleAreWeird(): void
     {
         $dataset = [
             'Фамилия Каспер - Валттери - Евгений Отчество' => [
@@ -137,7 +137,7 @@ class ParseFullNameTest extends TestCase
         }
     }
 
-    public function testNoMiddleName()
+    public function testNoMiddleName(): void
     {
         $dataset = [
             'Фамилия Имя' => [
@@ -158,31 +158,31 @@ class ParseFullNameTest extends TestCase
         }
     }
 
-    public function testExtraMiddleName()
+    public function testTurkicExtraMiddleName(): void
     {
         $dataset = [
-            'Мамедов Полад Муртуза оглы' => [
+            'Мамедов Полад Муртуза ' . Petrovich::SUFFIX_TURKIC_MALE_OGLY => [
                 'lastName'   => 'Мамедов',
                 'firstName'  => 'Полад',
-                'middleName' => 'Муртуза оглы',
+                'middleName' => 'Муртуза ' . Petrovich::SUFFIX_TURKIC_MALE_OGLY,
             ],
 
-            'Мамедов Полад Муртуза-оглы' => [
+            'Мамедов Полад Муртуза-' . Petrovich::SUFFIX_TURKIC_MALE_OGLY => [
                 'lastName'   => 'Мамедов',
                 'firstName'  => 'Полад',
-                'middleName' => 'Муртуза-оглы',
+                'middleName' => 'Муртуза-' . Petrovich::SUFFIX_TURKIC_MALE_OGLY,
             ],
 
-            'Алиева Мехрибан Ариф кызы' => [
+            'Алиева Мехрибан Ариф ' . Petrovich::SUFFIX_TURKIC_FEMALE_KYZY => [
                 'lastName'   => 'Алиева',
                 'firstName'  => 'Мехрибан',
-                'middleName' => 'Ариф кызы',
+                'middleName' => 'Ариф ' . Petrovich::SUFFIX_TURKIC_FEMALE_KYZY,
             ],
 
-            'Алиева Мехрибан Ариф-кызы' => [
+            'Алиева Мехрибан Ариф-' . Petrovich::SUFFIX_TURKIC_FEMALE_KYZY => [
                 'lastName'   => 'Алиева',
                 'firstName'  => 'Мехрибан',
-                'middleName' => 'Ариф-кызы',
+                'middleName' => 'Ариф-' . Petrovich::SUFFIX_TURKIC_FEMALE_KYZY,
             ],
         ];
 

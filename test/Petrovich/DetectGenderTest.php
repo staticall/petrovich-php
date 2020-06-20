@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Staticall\Petrovich\Petrovich;
 use Staticall\Petrovich\Exception;
 
-class DetectGenderTest extends TestCase
+final class DetectGenderTest extends TestCase
 {
-    public function testEmptyMiddleName()
+    public function testEmptyMiddleName() : void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Middle name cannot be empty');
@@ -16,7 +16,7 @@ class DetectGenderTest extends TestCase
         Petrovich::detectGender('');
     }
 
-    public function testGenderless()
+    public function testGenderless() : void
     {
         $middleNames = [
             'test',
@@ -28,7 +28,7 @@ class DetectGenderTest extends TestCase
         }
     }
 
-    public function testFemale()
+    public function testFemale() : void
     {
         $middleNames = [
             'Адамовна',
@@ -153,7 +153,7 @@ class DetectGenderTest extends TestCase
         }
     }
 
-    public function testMale()
+    public function testMale() : void
     {
         $middleNames = [
             'Александрович',
@@ -236,7 +236,7 @@ class DetectGenderTest extends TestCase
         }
     }
 
-    public function testMaleExceptionOgli()
+    public function testMaleExceptionTurkic() : void
     {
         $middleNames = [
             'Октай',
@@ -246,12 +246,23 @@ class DetectGenderTest extends TestCase
             'Жожоба',
         ];
 
+        $suffixes = [
+            Petrovich::SUFFIX_TURKIC_MALE_OGLY,
+            Petrovich::SUFFIX_TURKIC_MALE_ULY,
+            Petrovich::SUFFIX_TURKIC_MALE_UULU,
+        ];
+
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName . ' оглы'));
+            foreach ($suffixes as $suffix) {
+                static::assertSame(
+                    Petrovich\Ruleset::GENDER_MALE,
+                    Petrovich::detectGender($middleName . ' ' . $suffix)
+                );
+            }
         }
     }
 
-    public function testFemaleExceptionOgli()
+    public function testFemaleExceptionTurkic() : void
     {
         $middleNames = [
             'Октай',
@@ -261,8 +272,18 @@ class DetectGenderTest extends TestCase
             'Жожоба',
         ];
 
+        $suffixes = [
+            Petrovich::SUFFIX_TURKIC_FEMALE_KYZY,
+            Petrovich::SUFFIX_TURKIC_FEMALE_GYZY,
+        ];
+
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich\Ruleset::GENDER_FEMALE, Petrovich::detectGender($middleName . ' кызы'));
+            foreach ($suffixes as $suffix) {
+                static::assertSame(
+                    Petrovich\Ruleset::GENDER_FEMALE,
+                    Petrovich::detectGender($middleName . ' ' . $suffix)
+                );
+            }
         }
     }
 }

@@ -5,6 +5,15 @@ use Staticall\Petrovich\Petrovich\Ruleset;
 
 class Petrovich
 {
+    const SUFFIX_TURKIC_MALE_OGLY   = 'оглы';
+    const SUFFIX_TURKIC_MALE_ULY    = 'улы';
+    const SUFFIX_TURKIC_MALE_UULU   = 'уулу';
+    const SUFFIX_TURKIC_FEMALE_KYZY = 'кызы';
+    const SUFFIX_TURKIC_FEMALE_GYZY = 'гызы';
+
+    const SUFFIX_RUSSIAN_MALE   = 'ич';
+    const SUFFIX_RUSSIAN_FEMALE = 'на';
+
     /**
      * @var Ruleset
      */
@@ -138,10 +147,16 @@ class Petrovich
 
         $lastName   = \array_shift($nameParts);
         $middleName = \array_pop($nameParts);
-        if (\count($nameParts) > 1 && \in_array($middleName, ['оглы', 'кызы'])) {
+
+        if (
+            \count($nameParts) > 1
+            &&
+            \in_array($middleName, static::getTurkicSuffixes(), true)
+        ) {
             $middleName = \array_pop($nameParts) . ' ' . $middleName;
         }
-        $firstName  = \implode(' ', $nameParts);
+
+        $firstName = \implode(' ', $nameParts);
 
         if (empty($firstName)) {
             $firstName = $middleName;
@@ -165,26 +180,54 @@ class Petrovich
      *
      * @throws Exception
      */
-    public static function detectGender(string $middleName)
+    public static function detectGender(string $middleName) : string
     {
         if (empty($middleName)) {
             throw new Exception('Middle name cannot be empty');
         }
 
-        switch (\mb_substr(\mb_strtolower($middleName), -4)) {
-            case 'оглы':
+        $middleNameLowercase = \mb_strtolower($middleName);
+
+        switch (\mb_substr($middleNameLowercase, -4)) {
+            case static::SUFFIX_TURKIC_MALE_OGLY:
+            case static::SUFFIX_TURKIC_MALE_UULU:
                 return Ruleset::GENDER_MALE;
-            case 'кызы':
+            case static::SUFFIX_TURKIC_FEMALE_KYZY:
+            case static::SUFFIX_TURKIC_FEMALE_GYZY:
                 return Ruleset::GENDER_FEMALE;
         }
 
-        switch (\mb_substr(\mb_strtolower($middleName), -2)) {
-            case 'ич':
+        switch (\mb_substr($middleNameLowercase, -3)) {
+            case static::SUFFIX_TURKIC_MALE_ULY:
                 return Ruleset::GENDER_MALE;
-            case 'на':
-                return Ruleset::GENDER_FEMALE;
-            default:
-                return Ruleset::GENDER_ANDROGYNOUS;
         }
+
+        switch (\mb_substr($middleNameLowercase, -2)) {
+            case static::SUFFIX_RUSSIAN_MALE:
+                return Ruleset::GENDER_MALE;
+            case static::SUFFIX_RUSSIAN_FEMALE:
+                return Ruleset::GENDER_FEMALE;
+        }
+
+        return Ruleset::GENDER_ANDROGYNOUS;
+    }
+
+    /**
+     * Возвращает поддерживаемые суффиксы для тюркских отчеств
+     *
+     * @return array
+     *
+     * @link https://ru.wikipedia.org/wiki/Отчество#Тюркские_отчества
+     */
+    public static function getTurkicSuffixes() : array
+    {
+        return [
+            static::SUFFIX_TURKIC_MALE_OGLY,
+            static::SUFFIX_TURKIC_MALE_UULU,
+            static::SUFFIX_TURKIC_MALE_ULY,
+
+            static::SUFFIX_TURKIC_FEMALE_KYZY,
+            static::SUFFIX_TURKIC_FEMALE_GYZY,
+        ];
     }
 }
