@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use Staticall\Petrovich\Petrovich\Ruleset;
 use Staticall\Petrovich\Petrovich\ValidationException;
 
-class InvalidRulesTest extends TestCase
+final class InvalidRulesTest extends TestCase
 {
-    public function testSetInvalidRootKeyThroughConstruct()
+    public function testSetInvalidRootKeyThroughConstruct() : void
     {
         $rules = $this->getRulesRoot();
 
@@ -17,7 +17,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidRootKeyThroughSetter()
+    public function testSetInvalidRootKeyThroughSetter() : void
     {
         $rules = $this->getRulesRoot();
 
@@ -28,7 +28,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidSecondKeyThroughConstruct()
+    public function testSetInvalidSecondKeyThroughConstruct() : void
     {
         $rules = $this->getRulesSecond();
 
@@ -37,7 +37,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidSecondKeyThroughSetter()
+    public function testSetInvalidSecondKeyThroughSetter() : void
     {
         $rules = $this->getRulesSecond();
 
@@ -48,7 +48,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyPlainThroughConstruct()
+    public function testSetInvalidValueKeyPlainThroughConstruct() : void
     {
         $rules = $this->getRulesValuePlain();
 
@@ -57,7 +57,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyPlainThroughSetter()
+    public function testSetInvalidValueKeyPlainThroughSetter() : void
     {
         $rules = $this->getRulesValuePlain();
 
@@ -68,7 +68,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyComplexButInvalidKeyThroughConstruct()
+    public function testSetInvalidValueKeyComplexButInvalidKeyThroughConstruct() : void
     {
         $rules = $this->getRulesValueComplexButInvalidKey();
 
@@ -77,7 +77,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyComplexButInvalidKeyThroughSetter()
+    public function testSetInvalidValueKeyComplexButInvalidKeyThroughSetter() : void
     {
         $rules = $this->getRulesValueComplexButInvalidKey();
 
@@ -88,7 +88,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyTestNotArrayThroughConstruct()
+    public function testSetInvalidValueKeyTestNotArrayThroughConstruct() : void
     {
         $rules = $this->getRulesValueTestNotArray();
 
@@ -97,7 +97,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyTestNotArrayThroughSetter()
+    public function testSetInvalidValueKeyTestNotArrayThroughSetter() : void
     {
         $rules = $this->getRulesValueTestNotArray();
 
@@ -108,7 +108,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyModsNotArrayThroughConstruct()
+    public function testSetInvalidValueKeyModsNotArrayThroughConstruct() : void
     {
         $rules = $this->getRulesValueModsNotArray();
 
@@ -117,7 +117,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyModsNotArrayThroughSetter()
+    public function testSetInvalidValueKeyModsNotArrayThroughSetter() : void
     {
         $rules = $this->getRulesValueModsNotArray();
 
@@ -128,7 +128,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyTagsNotArrayThroughConstruct()
+    public function testSetInvalidValueKeyTagsNotArrayThroughConstruct() : void
     {
         $rules = $this->getRulesValueTagsNotArray();
 
@@ -137,7 +137,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyTagsNotArrayThroughSetter()
+    public function testSetInvalidValueKeyTagsNotArrayThroughSetter() : void
     {
         $rules = $this->getRulesValueTagsNotArray();
 
@@ -148,7 +148,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyGenderNotStringThroughConstruct()
+    public function testSetInvalidValueKeyGenderNotStringThroughConstruct() : void
     {
         $rules = $this->getRulesValueGenderNotString();
 
@@ -157,7 +157,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyGenderNotStringThroughSetter()
+    public function testSetInvalidValueKeyGenderNotStringThroughSetter() : void
     {
         $rules = $this->getRulesValueGenderNotString();
 
@@ -168,7 +168,7 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function testSetInvalidValueKeyGenderInvalidThroughConstruct()
+    public function testSetInvalidValueKeyGenderInvalidThroughConstruct() : void
     {
         $rules = $this->getRulesValueGenderInvalid();
 
@@ -177,7 +177,7 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
-    public function testSetInvalidValueKeyGenderInvalidThroughSetter()
+    public function testSetInvalidValueKeyGenderInvalidThroughSetter() : void
     {
         $rules = $this->getRulesValueGenderInvalid();
 
@@ -188,14 +188,14 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function getRulesRoot()
+    public function getRulesRoot() : array
     {
         return [
             'unknownkey' => [],
         ];
     }
 
-    public function getRulesSecond()
+    public function getRulesSecond() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -204,7 +204,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValuePlain()
+    public function getRulesValuePlain() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -215,7 +215,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueComplexButInvalidKey()
+    public function getRulesValueComplexButInvalidKey() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -228,7 +228,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueTestNotArray()
+    public function getRulesValueTestNotArray() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -241,7 +241,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueModsNotArray()
+    public function getRulesValueModsNotArray() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -254,7 +254,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueTagsNotArray()
+    public function getRulesValueTagsNotArray() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -267,7 +267,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueGenderNotString()
+    public function getRulesValueGenderNotString() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -280,7 +280,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueGenderInvalid()
+    public function getRulesValueGenderInvalid() : array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -293,7 +293,7 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function shouldExpectValidationException()
+    public function shouldExpectValidationException() : void
     {
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Input didn\'t pass validation');

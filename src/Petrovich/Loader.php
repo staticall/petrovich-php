@@ -1,8 +1,6 @@
 <?php
 namespace Staticall\Petrovich\Petrovich;
 
-use Symfony\Component\Yaml\Yaml;
-
 class Loader
 {
     const FILE_TYPE_JSON    = 'json';
@@ -65,10 +63,33 @@ class Loader
      * @return Ruleset
      *
      * @throws ValidationException
+     * @throws RuntimeException
+     * @throws IOException
      */
     public static function loadYml(string $filePath, bool $shouldValidate = false) : Ruleset
     {
-        $rules = Yaml::parseFile($filePath);
+        $yamlParserClassName = static::getYamlLoaderClassName();
+
+        if (\class_exists($yamlParserClassName) === false) {
+            throw new RuntimeException('You must install supported YAML parser');
+        }
+
+        $methodNameFile = 'parseFile';
+        $methodName     = 'parse';
+
+        if (\method_exists($yamlParserClassName, $methodNameFile) === true) {
+            $rules = $yamlParserClassName::$methodNameFile($filePath);
+
+            return new Ruleset($rules, $shouldValidate);
+        }
+
+        if (\method_exists($yamlParserClassName, $methodName) === false) {
+            throw new RuntimeException(
+                'Provided YAML parser does not have either "' . $methodName . '" or "' . $methodNameFile . '" methods'
+            );
+        }
+
+        $rules = $yamlParserClassName::$methodName(static::loadFile($filePath));
 
         return new Ruleset($rules, $shouldValidate);
     }
@@ -129,5 +150,10 @@ class Loader
     public static function getVendorRulesFilePath(string $type = self::FILE_TYPE_JSON)
     {
         return __DIR__ . '/../../vendor/cloudloyalty/petrovich-rules/rules.' . $type;
+    }
+
+    public static function getYamlLoaderClassName() : string
+    {
+        return '\Symfony\Component\Yaml\Yaml';
     }
 }

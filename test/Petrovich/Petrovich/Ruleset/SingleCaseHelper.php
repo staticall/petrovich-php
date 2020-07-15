@@ -7,7 +7,7 @@ use Staticall\Petrovich\Petrovich\Ruleset;
 
 class SingleCaseHelper extends TestCase
 {
-    public function getMods(array $overwrite = [])
+    public function getMods(array $overwrite = []) : array
     {
         $default = [
             '--ьва',
@@ -25,7 +25,7 @@ class SingleCaseHelper extends TestCase
         string $expected,
         int $case,
         string $gender
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -49,7 +49,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -92,7 +92,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -135,7 +135,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -166,7 +166,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -211,7 +211,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -249,7 +249,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -287,7 +287,7 @@ class SingleCaseHelper extends TestCase
         int $case,
         string $gender,
         array $additionalMods = []
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -319,7 +319,7 @@ class SingleCaseHelper extends TestCase
         string $expected,
         int $case,
         string $gender
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -356,7 +356,7 @@ class SingleCaseHelper extends TestCase
         string $expected,
         int $case,
         string $gender
-    )
+    ) : void
     {
         $ruleset = new Ruleset([], false);
 

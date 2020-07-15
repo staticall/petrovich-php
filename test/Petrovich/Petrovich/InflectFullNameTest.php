@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class InflectFullNameTest extends TestCase
+final class InflectFullNameTest extends TestCase
 {
-    public function testWithoutMiddleNameRules()
+    public function testWithoutMiddleNameRules() : void
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
 
@@ -27,7 +27,7 @@ class InflectFullNameTest extends TestCase
         $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
-    public function testWithoutFirstNameRules()
+    public function testWithoutFirstNameRules() : void
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
 
@@ -47,7 +47,7 @@ class InflectFullNameTest extends TestCase
         $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
-    public function testWithoutLastNameRules()
+    public function testWithoutLastNameRules() : void
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
 
@@ -67,7 +67,7 @@ class InflectFullNameTest extends TestCase
         $petrovich->inflectFullName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
-    public function testMale()
+    public function testMale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -102,7 +102,7 @@ class InflectFullNameTest extends TestCase
         }
     }
 
-    public function testFemale()
+    public function testFemale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -137,7 +137,7 @@ class InflectFullNameTest extends TestCase
         }
     }
 
-    public function testWithDetectGender()
+    public function testWithDetectGender() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 

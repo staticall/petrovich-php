@@ -5,6 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Loader;
 use Staticall\Petrovich\Petrovich\Ruleset;
+use StaticallTest\Mock\Loader\YamlClassAndMethodExistsMock;
 
 class LoadRealTest extends TestCase
 {
@@ -34,11 +35,12 @@ class LoadRealTest extends TestCase
 
     public function testLoadCorrectYamlRules()
     {
-        $filePath = $this->getRuleFilePath('rules.yml');
+        $filePathYaml = $this->getRuleFilePath('rules.yml');
+        $filePathJson = $this->getRuleFilePath('rules.json');
 
-        $loadYaml     = Loader::loadYml($filePath, true);
-        $load         = Loader::load($filePath, null, true);
-        $loadWithType = Loader::load($filePath, Loader::FILE_TYPE_YML, true);
+        $loadYaml     = YamlClassAndMethodExistsMock::loadYml($filePathYaml, true);
+        $load         = YamlClassAndMethodExistsMock::load($filePathJson, null, true);
+        $loadWithType = YamlClassAndMethodExistsMock::load($filePathYaml, Loader::FILE_TYPE_YML, true);
 
         static::assertInstanceOf(Ruleset::class, $loadYaml);
         static::assertInstanceOf(Ruleset::class, $load);

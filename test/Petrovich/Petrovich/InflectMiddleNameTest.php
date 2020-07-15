@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich;
 
-class InflectMiddleNameTest extends TestCase
+final class InflectMiddleNameTest extends TestCase
 {
-    public function testWithoutMiddleNameRules()
+    public function testWithoutMiddleNameRules() : void
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
 
@@ -27,7 +27,7 @@ class InflectMiddleNameTest extends TestCase
         $petrovich->inflectMiddleName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
-    public function testMale()
+    public function testMale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -54,7 +54,7 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
-    public function testFemale()
+    public function testFemale() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -80,7 +80,7 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
-    public function testAndrogynous()
+    public function testAndrogynous() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
@@ -106,7 +106,7 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
-    public function testShouldCallDetectGenderOnlyIfNotProvided()
+    public function testShouldCallDetectGenderOnlyIfNotProvided() : void
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 

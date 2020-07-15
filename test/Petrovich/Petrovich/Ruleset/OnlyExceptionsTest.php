@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class OnlyExceptionsTest extends TestCase
+final class OnlyExceptionsTest extends TestCase
 {
-    public function testHasNoExceptionsAndUndefined()
+    public function testHasNoExceptionsAndUndefined() : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -25,7 +25,7 @@ class OnlyExceptionsTest extends TestCase
         );
     }
 
-    public function testHasNoExceptionsButDefined()
+    public function testHasNoExceptionsButDefined() : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -45,7 +45,7 @@ class OnlyExceptionsTest extends TestCase
         );
     }
 
-    public function testExceptionShouldOnlyRunOnSecond()
+    public function testExceptionShouldOnlyRunOnSecond() : void
     {
         $ruleset = new Ruleset([], false);
 

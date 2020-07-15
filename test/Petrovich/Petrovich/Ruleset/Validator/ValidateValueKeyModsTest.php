@@ -5,16 +5,16 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class ValidateValueKeyModsTest extends TestCase
+final class ValidateValueKeyModsTest extends TestCase
 {
-    public function testNoSuchKey()
+    public function testNoSuchKey() : void
     {
         $validator = new Ruleset\Validator;
 
         static::assertTrue($validator->validateValueKeyMods([]));
     }
 
-    public function testRuleIsInvalidType()
+    public function testRuleIsInvalidType() : void
     {
         $validator = new Ruleset\Validator;
 
@@ -27,7 +27,7 @@ class ValidateValueKeyModsTest extends TestCase
         );
     }
 
-    public function testRuleIsValidType()
+    public function testRuleIsValidType() : void
     {
         $validator = new Ruleset\Validator;
 

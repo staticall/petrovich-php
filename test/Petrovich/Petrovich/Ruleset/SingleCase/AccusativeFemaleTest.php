@@ -5,12 +5,12 @@ use StaticallTest\Petrovich\Petrovich\Ruleset\SingleCaseHelper;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class AccusativeFemaleTest extends SingleCaseHelper
+final class AccusativeFemaleTest extends SingleCaseHelper
 {
     const THIS_CASE   = Ruleset::CASE_ACCUSATIVE;
     const THIS_GENDER = Ruleset::GENDER_FEMALE;
 
-    public function testNoExceptionsNoSuffixes()
+    public function testNoExceptionsNoSuffixes() : void
     {
         $this->runTestNoExceptionsNoSuffixes(
             'Тест',
@@ -20,7 +20,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsGenderWrong1NoSuffixes()
+    public function testHasExceptionsGenderWrong1NoSuffixes() : void
     {
         $this->runTestHasExceptionsGenderWrong1NoSuffixes(
             'Тест',
@@ -30,7 +30,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsGenderWrong2NoSuffixes()
+    public function testHasExceptionsGenderWrong2NoSuffixes() : void
     {
         $this->runTestHasExceptionsGenderWrong2NoSuffixes(
             'Тест',
@@ -40,7 +40,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsCorrectGenderNoSuffixes()
+    public function testHasExceptionsCorrectGenderNoSuffixes() : void
     {
         $this->runTestHasExceptionsCorrectGenderNoSuffixes(
             'Тест',
@@ -50,7 +50,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsCorrectGenderAfterIncorrectNoSuffixes()
+    public function testHasExceptionsCorrectGenderAfterIncorrectNoSuffixes() : void
     {
         $this->runTestHasExceptionsCorrectGenderAfterIncorrectNoSuffixes(
             'Тест',
@@ -60,7 +60,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsAndSuffixes()
+    public function testHasExceptionsAndSuffixes() : void
     {
         $this->runTestHasExceptionsAndSuffixes(
             'Тест',
@@ -70,7 +70,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testHasExceptionsAndSuffixesReverseOrder()
+    public function testHasExceptionsAndSuffixesReverseOrder() : void
     {
         $this->runTestHasExceptionsAndSuffixesReverseOrder(
             'Тест',
@@ -80,7 +80,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testNoExceptionsHasSuffixes()
+    public function testNoExceptionsHasSuffixes() : void
     {
         $this->runTestNoExceptionsHasSuffixes(
             'Тест',
@@ -90,7 +90,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testNoExceptionsHasSuffixesDotMod()
+    public function testNoExceptionsHasSuffixesDotMod() : void
     {
         $this->runTestNoExceptionsHasSuffixesDotMod(
             'Тест',
@@ -100,7 +100,7 @@ class AccusativeFemaleTest extends SingleCaseHelper
         );
     }
 
-    public function testIncorrectInputShouldReturnInput()
+    public function testIncorrectInputShouldReturnInput() : void
     {
         $this->runTestIncorrectInputShouldReturnInput(
             'Неизвестно',

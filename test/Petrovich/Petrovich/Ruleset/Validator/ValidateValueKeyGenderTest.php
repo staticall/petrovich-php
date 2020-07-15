@@ -5,16 +5,16 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class ValidateValueKeyGenderTest extends TestCase
+final class ValidateValueKeyGenderTest extends TestCase
 {
-    public function testNoSuchKey()
+    public function testNoSuchKey() : void
     {
         $validator = new Ruleset\Validator;
 
         static::assertTrue($validator->validateValueKeyGender([]));
     }
 
-    public function testRuleIsInvalidType()
+    public function testRuleIsInvalidType() : void
     {
         $validator = new Ruleset\Validator;
 
@@ -27,7 +27,7 @@ class ValidateValueKeyGenderTest extends TestCase
         );
     }
 
-    public function testRuleIsValidValue()
+    public function testRuleIsValidValue() : void
     {
         $validator = new Ruleset\Validator;
 
@@ -42,7 +42,7 @@ class ValidateValueKeyGenderTest extends TestCase
         }
     }
 
-    public function testRuleUnknownValue()
+    public function testRuleUnknownValue() : void
     {
         $validator = new Ruleset\Validator;
 

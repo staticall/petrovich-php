@@ -5,29 +5,29 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class AvailablesTest extends TestCase
+final class AvailablesTest extends TestCase
 {
-    public function testAvailableCasesShouldReturnCorrectAmount()
+    public function testAvailableCasesShouldReturnCorrectAmount() : void
     {
         static::assertCount(6, Ruleset::getAvailableCases());
     }
 
-    public function testAvailableGendersShouldReturnCorrectAmount()
+    public function testAvailableGendersShouldReturnCorrectAmount() : void
     {
         static::assertCount(3, Ruleset::getAvailableGenders());
     }
 
-    public function testAvailableRootKeysShouldReturnCorrectAmount()
+    public function testAvailableRootKeysShouldReturnCorrectAmount() : void
     {
         static::assertCount(3, Ruleset::getAvailableRootKeys());
     }
 
-    public function testAvailableSecondKeysShouldReturnCorrectAmount()
+    public function testAvailableSecondKeysShouldReturnCorrectAmount() : void
     {
         static::assertCount(2, Ruleset::getAvailableSecondKeys());
     }
 
-    public function testAvailableValueKeysShouldReturnCorrectAmount()
+    public function testAvailableValueKeysShouldReturnCorrectAmount() : void
     {
         static::assertCount(4, Ruleset::getAvailableValueKeys());
     }

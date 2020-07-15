@@ -5,19 +5,18 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class ValidateRootKeysTest extends TestCase
+final class ValidateRootKeysTest extends TestCase
 {
-    public function testNoRootKeysFoundShouldLeadToFalse()
+    public function testNoRootKeysFoundShouldLeadToFalse() : void
     {
-        $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         $validator = new Ruleset\Validator();
 
         static::assertFalse($validator->validateRootKeys($rules));
     }
 
-    public function testNoAvailableRootKeysFoundShouldLeadToFalse()
+    public function testNoAvailableRootKeysFoundShouldLeadToFalse() : void
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
         $rules    = [];
@@ -31,7 +30,7 @@ class ValidateRootKeysTest extends TestCase
         static::assertFalse($validator->validateRootKeys($rules));
     }
 
-    public function testUnknownRootKeysFoundShouldLeadToFalse()
+    public function testUnknownRootKeysFoundShouldLeadToFalse() : void
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
         $rules    = [];
@@ -46,7 +45,7 @@ class ValidateRootKeysTest extends TestCase
         static::assertFalse($validator->validateRootKeys($rules));
     }
 
-    public function testSingleAvailableRootKeyFoundShouldLeadToTrue()
+    public function testSingleAvailableRootKeyFoundShouldLeadToTrue() : void
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
         $rules    = [];
@@ -62,7 +61,7 @@ class ValidateRootKeysTest extends TestCase
         static::assertTrue($validator->validateRootKeys($rules));
     }
 
-    public function testAllAvailableRootKeyFoundShouldLeadToTrue()
+    public function testAllAvailableRootKeyFoundShouldLeadToTrue() : void
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
         $rules    = [];

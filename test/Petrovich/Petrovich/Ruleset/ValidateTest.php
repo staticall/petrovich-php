@@ -5,9 +5,9 @@ use PHPUnit\Framework\TestCase;
 
 use Staticall\Petrovich\Petrovich\Ruleset;
 
-class ValidateTest extends TestCase
+final class ValidateTest extends TestCase
 {
-    public function testOnlyAvailableRootKeys()
+    public function testOnlyAvailableRootKeys() : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -20,7 +20,7 @@ class ValidateTest extends TestCase
         static::assertTrue($ruleset->validate($rules));
     }
 
-    public function testUnknownRootKey()
+    public function testUnknownRootKey() : void
     {
         $ruleset = new Ruleset([], false);
 
@@ -31,7 +31,7 @@ class ValidateTest extends TestCase
         static::assertFalse($ruleset->validate($rules));
     }
 
-    public function testMixedBothKnownAndUnknownRootKeys()
+    public function testMixedBothKnownAndUnknownRootKeys() : void
     {
         $ruleset = new Ruleset([], false);
 
