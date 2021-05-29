@@ -1,9 +1,9 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Loader;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Loader;
+
+use Masterweber\Petrovich\Petrovich\Loader;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Loader;
 
 class DetermineFileTypeTest extends TestCase
 {

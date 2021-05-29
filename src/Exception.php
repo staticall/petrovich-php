@@ -1,5 +1,6 @@
 <?php
-namespace Staticall\Petrovich;
+
+namespace Masterweber\Petrovich;
 
 class Exception extends \Exception
 {

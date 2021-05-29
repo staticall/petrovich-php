@@ -1,13 +1,17 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Loader;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Loader;
+
+use JetBrains\PhpStorm\ArrayShape;
+use Masterweber\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\ValidationException;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Ruleset;
-use Staticall\Petrovich\Petrovich\ValidationException;
 
 class InvalidRulesTest extends TestCase
 {
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidRootKeyThroughConstruct()
     {
         $rules = $this->getRulesRoot();
@@ -17,6 +21,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidRootKeyThroughSetter()
     {
         $rules = $this->getRulesRoot();
@@ -28,6 +35,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidSecondKeyThroughConstruct()
     {
         $rules = $this->getRulesSecond();
@@ -37,6 +47,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidSecondKeyThroughSetter()
     {
         $rules = $this->getRulesSecond();
@@ -48,6 +61,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyPlainThroughConstruct()
     {
         $rules = $this->getRulesValuePlain();
@@ -57,6 +73,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyPlainThroughSetter()
     {
         $rules = $this->getRulesValuePlain();
@@ -68,6 +87,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyComplexButInvalidKeyThroughConstruct()
     {
         $rules = $this->getRulesValueComplexButInvalidKey();
@@ -77,6 +99,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyComplexButInvalidKeyThroughSetter()
     {
         $rules = $this->getRulesValueComplexButInvalidKey();
@@ -88,6 +113,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyTestNotArrayThroughConstruct()
     {
         $rules = $this->getRulesValueTestNotArray();
@@ -97,6 +125,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyTestNotArrayThroughSetter()
     {
         $rules = $this->getRulesValueTestNotArray();
@@ -108,6 +139,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyModsNotArrayThroughConstruct()
     {
         $rules = $this->getRulesValueModsNotArray();
@@ -117,6 +151,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyModsNotArrayThroughSetter()
     {
         $rules = $this->getRulesValueModsNotArray();
@@ -128,6 +165,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyTagsNotArrayThroughConstruct()
     {
         $rules = $this->getRulesValueTagsNotArray();
@@ -137,6 +177,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyTagsNotArrayThroughSetter()
     {
         $rules = $this->getRulesValueTagsNotArray();
@@ -148,6 +191,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyGenderNotStringThroughConstruct()
     {
         $rules = $this->getRulesValueGenderNotString();
@@ -157,6 +203,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyGenderNotStringThroughSetter()
     {
         $rules = $this->getRulesValueGenderNotString();
@@ -168,6 +217,9 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyGenderInvalidThroughConstruct()
     {
         $rules = $this->getRulesValueGenderInvalid();
@@ -177,6 +229,9 @@ class InvalidRulesTest extends TestCase
         new Ruleset($rules, true);
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testSetInvalidValueKeyGenderInvalidThroughSetter()
     {
         $rules = $this->getRulesValueGenderInvalid();
@@ -188,14 +243,16 @@ class InvalidRulesTest extends TestCase
         $ruleset->setRules($rules, true);
     }
 
-    public function getRulesRoot()
+    #[ArrayShape(['unknownkey' => 'array'])]
+    public function getRulesRoot(): array
     {
         return [
             'unknownkey' => [],
         ];
     }
 
-    public function getRulesSecond()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => 'array[]'])]
+    public function getRulesSecond(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -204,7 +261,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValuePlain()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => 'array[]'])]
+    public function getRulesValuePlain(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -215,7 +273,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueComplexButInvalidKey()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\array[][][]'])]
+    public function getRulesValueComplexButInvalidKey(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -228,7 +287,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueTestNotArray()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\string[][][]'])]
+    public function getRulesValueTestNotArray(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -241,7 +301,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueModsNotArray()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\string[][][]'])]
+    public function getRulesValueModsNotArray(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -254,7 +315,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueTagsNotArray()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\string[][][]'])]
+    public function getRulesValueTagsNotArray(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -267,7 +329,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueGenderNotString()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\array[][][]'])]
+    public function getRulesValueGenderNotString(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -280,7 +343,8 @@ class InvalidRulesTest extends TestCase
         ];
     }
 
-    public function getRulesValueGenderInvalid()
+    #[ArrayShape([Ruleset::ROOT_KEY_FIRSTNAME => '\string[][][]'])]
+    public function getRulesValueGenderInvalid(): array
     {
         return [
             Ruleset::ROOT_KEY_FIRSTNAME => [

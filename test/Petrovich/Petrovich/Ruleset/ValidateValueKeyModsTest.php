@@ -1,9 +1,9 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Ruleset;
 
 class ValidateValueKeyModsTest extends TestCase
 {

@@ -1,14 +1,14 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich;
 
+namespace Masterweber\Test\Petrovich\Petrovich;
+
+use Masterweber\Petrovich\Exception;
+use Masterweber\Petrovich\Petrovich;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich;
-use Staticall\Petrovich\Exception;
 
 final class DetectGenderTest extends TestCase
 {
-    public function testEmptyMiddleName() : void
+    public function testEmptyMiddleName(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Middle name cannot be empty');
@@ -16,7 +16,10 @@ final class DetectGenderTest extends TestCase
         Petrovich::detectGender('');
     }
 
-    public function testGenderless() : void
+    /**
+     * @throws Exception
+     */
+    public function testGenderless(): void
     {
         $middleNames = [
             'test',
@@ -24,11 +27,14 @@ final class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich\Ruleset::GENDER_ANDROGYNOUS, Petrovich::detectGender($middleName));
+            DetectGenderTest::assertSame(Petrovich\Ruleset::GENDER_ANDROGYNOUS, Petrovich::detectGender($middleName));
         }
     }
 
-    public function testFemale() : void
+    /**
+     * @throws Exception
+     */
+    public function testFemale(): void
     {
         $middleNames = [
             'Адамовна',
@@ -149,11 +155,14 @@ final class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich\Ruleset::GENDER_FEMALE, Petrovich::detectGender($middleName));
+            DetectGenderTest::assertSame(Petrovich\Ruleset::GENDER_FEMALE, Petrovich::detectGender($middleName));
         }
     }
 
-    public function testMale() : void
+    /**
+     * @throws Exception
+     */
+    public function testMale(): void
     {
         $middleNames = [
             'Александрович',
@@ -232,11 +241,14 @@ final class DetectGenderTest extends TestCase
         ];
 
         foreach ($middleNames as $middleName) {
-            static::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName));
+            DetectGenderTest::assertSame(Petrovich\Ruleset::GENDER_MALE, Petrovich::detectGender($middleName));
         }
     }
 
-    public function testMaleExceptionTurkic() : void
+    /**
+     * @throws Exception
+     */
+    public function testMaleExceptionTurkic(): void
     {
         $middleNames = [
             'Октай',
@@ -254,7 +266,7 @@ final class DetectGenderTest extends TestCase
 
         foreach ($middleNames as $middleName) {
             foreach ($suffixes as $suffix) {
-                static::assertSame(
+                DetectGenderTest::assertSame(
                     Petrovich\Ruleset::GENDER_MALE,
                     Petrovich::detectGender($middleName . ' ' . $suffix)
                 );
@@ -262,7 +274,10 @@ final class DetectGenderTest extends TestCase
         }
     }
 
-    public function testFemaleExceptionTurkic() : void
+    /**
+     * @throws Exception
+     */
+    public function testFemaleExceptionTurkic(): void
     {
         $middleNames = [
             'Октай',
@@ -279,7 +294,7 @@ final class DetectGenderTest extends TestCase
 
         foreach ($middleNames as $middleName) {
             foreach ($suffixes as $suffix) {
-                static::assertSame(
+                DetectGenderTest::assertSame(
                     Petrovich\Ruleset::GENDER_FEMALE,
                     Petrovich::detectGender($middleName . ' ' . $suffix)
                 );

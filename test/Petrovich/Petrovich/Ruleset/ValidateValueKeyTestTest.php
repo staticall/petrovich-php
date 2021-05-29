@@ -1,17 +1,17 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
 use PHPUnit\Framework\TestCase;
 
-use Staticall\Petrovich\Petrovich\Ruleset;
-
-class ValidateValueKeyTagsTest extends TestCase
+class ValidateValueKeyTestTest extends TestCase
 {
     public function testNoSuchKey()
     {
         $validator = new Ruleset\Validator;
 
-        static::assertTrue($validator->validateValueKeyTags([]));
+        static::assertTrue($validator->validateValueKeyTest([]));
     }
 
     public function testRuleIsInvalidType()
@@ -19,9 +19,9 @@ class ValidateValueKeyTagsTest extends TestCase
         $validator = new Ruleset\Validator;
 
         static::assertFalse(
-            $validator->validateValueKeyTags(
+            $validator->validateValueKeyTest(
                 [
-                    Ruleset::VALUE_KEY_TAGS => 'test',
+                    Ruleset::VALUE_KEY_TEST => 'test',
                 ]
             )
         );
@@ -32,9 +32,9 @@ class ValidateValueKeyTagsTest extends TestCase
         $validator = new Ruleset\Validator;
 
         static::assertTrue(
-            $validator->validateValueKeyTags(
+            $validator->validateValueKeyTest(
                 [
-                    Ruleset::VALUE_KEY_TAGS => [
+                    Ruleset::VALUE_KEY_TEST => [
                         'test',
                     ],
                 ]

@@ -1,19 +1,30 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Mutation;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Mutation;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\RuntimeException;
+use Masterweber\Petrovich\Petrovich\ValidationException;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
 
-use Staticall\Petrovich\Petrovich\Ruleset;
+use function explode;
+use function implode;
 
 class RulesetTest extends TestCase
 {
+    /**
+     * @throws ValidationException
+     * @throws RuntimeException
+     */
     public function testBreakInsteadOfContinueInInflectMethodHasSuffix()
     {
         $ruleset = new Ruleset([], false);
 
         $delimiter = '-';
-        $name      = 'Анна' . $delimiter . 'Анна';
-        $gender    = Ruleset::GENDER_FEMALE;
+        $name = 'Анна' . $delimiter . 'Анна';
+        $gender = Ruleset::GENDER_FEMALE;
 
         $rules = [
             Ruleset::ROOT_KEY_FIRSTNAME => [
@@ -34,7 +45,7 @@ class RulesetTest extends TestCase
                         ],
                     ],
                 ],
-            ]
+            ],
         ];
 
         $ruleset->setRules($rules, false);
@@ -42,11 +53,11 @@ class RulesetTest extends TestCase
         foreach (Ruleset::getAvailableCases() as $case) {
             $expected = [];
 
-            foreach (\explode('-', $name) as $namePart) {
+            foreach (explode('-', $name) as $namePart) {
                 $expected[] = $ruleset->inflectFirstName($namePart, $case, $gender, $delimiter);
             }
 
-            $expected = \implode($delimiter, $expected);
+            $expected = implode($delimiter, $expected);
 
             // Because nomenative case is weird
             if ($case !== Ruleset::CASE_NOMENATIVE) {
@@ -59,21 +70,25 @@ class RulesetTest extends TestCase
         }
     }
 
+    /**
+     * @throws ReflectionException
+     * @throws ValidationException
+     */
     public function testBreakInsteadOfContinueInInflectMethodHasException()
     {
         $ruleset = new Ruleset([], false);
 
         $delimiter = '-';
-        $name      = 'Юлия' . $delimiter . 'Юлия';
-        $gender    = Ruleset::GENDER_FEMALE;
+        $name = 'Юлия' . $delimiter . 'Юлия';
+        $gender = Ruleset::GENDER_FEMALE;
 
         $expected = [
-            Ruleset::CASE_NOMENATIVE    => 'Юлия'  . $delimiter . 'Юлия',
-            Ruleset::CASE_GENITIVE      => 'Юлии'  . $delimiter . 'Юлии',
-            Ruleset::CASE_DATIVE        => 'Юлие'  . $delimiter . 'Юлие',
-            Ruleset::CASE_ACCUSATIVE    => 'Юлию'  . $delimiter . 'Юлию',
-            Ruleset::CASE_INSTRUMENTAL  => 'Юлией' . $delimiter . 'Юлией',
-            Ruleset::CASE_PREPOSITIONAL => 'Юлии'  . $delimiter . 'Юлии',
+            Ruleset::CASE_NOMENATIVE => 'Юлия' . $delimiter . 'Юлия',
+            Ruleset::CASE_GENITIVE => 'Юлии' . $delimiter . 'Юлии',
+            Ruleset::CASE_DATIVE => 'Юлие' . $delimiter . 'Юлие',
+            Ruleset::CASE_ACCUSATIVE => 'Юлию' . $delimiter . 'Юлию',
+            Ruleset::CASE_INSTRUMENTAL => 'Юлией' . $delimiter . 'Юлией',
+            Ruleset::CASE_PREPOSITIONAL => 'Юлии' . $delimiter . 'Юлии',
         ];
 
         $rules = [
@@ -111,7 +126,7 @@ class RulesetTest extends TestCase
                         ],
                     ],
                 ],
-            ]
+            ],
         ];
 
         $ruleset->setRules($rules, false);
@@ -119,14 +134,14 @@ class RulesetTest extends TestCase
         foreach (Ruleset::getAvailableCases() as $case) {
             $toExpect = $expected[$case];
 
-            $parts = \explode($delimiter, $name);
+            $parts = explode($delimiter, $name);
 
             $resultParts = [];
 
             foreach ($parts as $namePart) {
                 // Because nomenative case is weird
                 if ($case !== Ruleset::CASE_NOMENATIVE) {
-                    $reflectionClass = new \ReflectionClass($ruleset);
+                    $reflectionClass = new ReflectionClass($ruleset);
 
                     $getException = $reflectionClass->getMethod('getException');
 
@@ -147,7 +162,7 @@ class RulesetTest extends TestCase
                 }
             }
 
-            $resultName = \implode($delimiter, $resultParts);
+            $resultName = implode($delimiter, $resultParts);
 
             static::assertNotSame($resultName, $toExpect);
 

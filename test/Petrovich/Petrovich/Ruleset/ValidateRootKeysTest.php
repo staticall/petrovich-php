@@ -1,16 +1,15 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Ruleset;
 
 class ValidateRootKeysTest extends TestCase
 {
     public function testNoRootKeysFoundShouldLeadToFalse()
     {
-        $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         $validator = new Ruleset\Validator();
 
@@ -20,7 +19,7 @@ class ValidateRootKeysTest extends TestCase
     public function testNoAvailableRootKeysFoundShouldLeadToFalse()
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         foreach ($rootKeys as $key) {
             $rules[$key . '_'] = [];
@@ -34,7 +33,7 @@ class ValidateRootKeysTest extends TestCase
     public function testUnknownRootKeysFoundShouldLeadToFalse()
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         foreach ($rootKeys as $key) {
             $rules[$key] = [];
@@ -49,7 +48,7 @@ class ValidateRootKeysTest extends TestCase
     public function testSingleAvailableRootKeyFoundShouldLeadToTrue()
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         foreach ($rootKeys as $key) {
             $rules[$key] = [];
@@ -65,7 +64,7 @@ class ValidateRootKeysTest extends TestCase
     public function testAllAvailableRootKeyFoundShouldLeadToTrue()
     {
         $rootKeys = Ruleset::getAvailableRootKeys();
-        $rules    = [];
+        $rules = [];
 
         foreach ($rootKeys as $key) {
             $rules[$key] = [];

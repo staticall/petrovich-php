@@ -1,14 +1,19 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Loader;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Loader;
+
+use Masterweber\Petrovich\Petrovich\IOException;
+use Masterweber\Petrovich\Petrovich\Loader;
+use Masterweber\Petrovich\Petrovich\RuntimeException;
+use Masterweber\Petrovich\Petrovich\ValidationException;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Loader;
-use Staticall\Petrovich\Petrovich\IOException;
-use Staticall\Petrovich\Petrovich\RuntimeException;
 
 class LoadTest extends TestCase
 {
+    /**
+     * @throws ValidationException
+     * @throws IOException
+     */
     public function testUnknownExtension()
     {
         $filePath = realpath(__DIR__ . '/../../../files/file.unknown');
@@ -19,6 +24,10 @@ class LoadTest extends TestCase
         Loader::load($filePath, 'unknown');
     }
 
+    /**
+     * @throws ValidationException
+     * @throws RuntimeException
+     */
     public function testInvalidFile()
     {
         $filePath = realpath(__DIR__ . '/../../../files/file.not-exists');

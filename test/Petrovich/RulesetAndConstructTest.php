@@ -1,32 +1,38 @@
 <?php
-namespace StaticallTest\Petrovich;
 
+namespace Masterweber\Test\Petrovich;
+
+use Masterweber\Petrovich\Petrovich;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich;
 
 final class RulesetAndConstructTest extends TestCase
 {
-    public function testConstructShouldStoreRuleset() : void
+    /**
+     * @throws Petrovich\ValidationException
+     */
+    public function testConstructShouldStoreRuleset(): void
     {
         $ruleset = new Petrovich\Ruleset([], false);
 
         $petrovich = new Petrovich($ruleset);
 
-        static::assertSame($ruleset, $petrovich->getRuleset());
+        RulesetAndConstructTest::assertSame($ruleset, $petrovich->getRuleset());
     }
 
-    public function testSetterShouldStoreRuleset() : void
+    /**
+     * @throws Petrovich\ValidationException
+     */
+    public function testSetterShouldStoreRuleset(): void
     {
         $rulesetConstruct = new Petrovich\Ruleset([], false);
-        $rulesetSetter    = new Petrovich\Ruleset([], false);
+        $rulesetSetter = new Petrovich\Ruleset([], false);
 
         $petrovich = new Petrovich($rulesetConstruct);
 
-        static::assertNotSame($rulesetSetter, $rulesetConstruct);
+        RulesetAndConstructTest::assertNotSame($rulesetSetter, $rulesetConstruct);
 
         $petrovich->setRuleset($rulesetSetter);
 
-        static::assertSame($rulesetSetter, $petrovich->getRuleset());
+        RulesetAndConstructTest::assertSame($rulesetSetter, $petrovich->getRuleset());
     }
 }

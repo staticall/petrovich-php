@@ -1,12 +1,19 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich;
 
+namespace Masterweber\Test\Petrovich\Petrovich;
+
+use Masterweber\Petrovich\Exception;
+use Masterweber\Petrovich\Petrovich;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich;
 
 class InflectMiddleNameTest extends TestCase
 {
+    /**
+     * @throws Petrovich\ValidationException
+     * @throws Petrovich\IOException
+     * @throws Exception
+     * @throws Petrovich\RuntimeException
+     */
     public function testWithoutMiddleNameRules()
     {
         $ruleset = Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath());
@@ -27,17 +34,23 @@ class InflectMiddleNameTest extends TestCase
         $petrovich->inflectMiddleName($name, Petrovich\Ruleset::CASE_NOMENATIVE, Petrovich\Ruleset::GENDER_MALE);
     }
 
+    /**
+     * @throws Petrovich\ValidationException
+     * @throws Petrovich\IOException
+     * @throws Exception
+     * @throws Petrovich\RuntimeException
+     */
     public function testMale()
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
         $names = [
             'Алексеевич' => [
-                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Алексеевич',
-                Petrovich\Ruleset::CASE_GENITIVE      => 'Алексеевича',
-                Petrovich\Ruleset::CASE_DATIVE        => 'Алексеевичу',
-                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Алексеевича',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Алексеевичем',
+                Petrovich\Ruleset::CASE_NOMENATIVE => 'Алексеевич',
+                Petrovich\Ruleset::CASE_GENITIVE => 'Алексеевича',
+                Petrovich\Ruleset::CASE_DATIVE => 'Алексеевичу',
+                Petrovich\Ruleset::CASE_ACCUSATIVE => 'Алексеевича',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL => 'Алексеевичем',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Алексеевиче',
             ],
 
@@ -54,17 +67,23 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
+    /**
+     * @throws Petrovich\ValidationException
+     * @throws Petrovich\IOException
+     * @throws Exception
+     * @throws Petrovich\RuntimeException
+     */
     public function testFemale()
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
         $names = [
             'Сергеевна' => [
-                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Сергеевна',
-                Petrovich\Ruleset::CASE_GENITIVE      => 'Сергеевны',
-                Petrovich\Ruleset::CASE_DATIVE        => 'Сергеевне',
-                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Сергеевну',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Сергеевной',
+                Petrovich\Ruleset::CASE_NOMENATIVE => 'Сергеевна',
+                Petrovich\Ruleset::CASE_GENITIVE => 'Сергеевны',
+                Petrovich\Ruleset::CASE_DATIVE => 'Сергеевне',
+                Petrovich\Ruleset::CASE_ACCUSATIVE => 'Сергеевну',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL => 'Сергеевной',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Сергеевне',
             ],
         ];
@@ -80,17 +99,23 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
+    /**
+     * @throws Petrovich\ValidationException
+     * @throws Petrovich\IOException
+     * @throws Exception
+     * @throws Petrovich\RuntimeException
+     */
     public function testAndrogynous()
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
         $names = [
             'Борух' => [
-                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Борух',
-                Petrovich\Ruleset::CASE_GENITIVE      => 'Борух',
-                Petrovich\Ruleset::CASE_DATIVE        => 'Борух',
-                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Борух',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Борух',
+                Petrovich\Ruleset::CASE_NOMENATIVE => 'Борух',
+                Petrovich\Ruleset::CASE_GENITIVE => 'Борух',
+                Petrovich\Ruleset::CASE_DATIVE => 'Борух',
+                Petrovich\Ruleset::CASE_ACCUSATIVE => 'Борух',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL => 'Борух',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Борух',
             ],
         ];
@@ -106,25 +131,31 @@ class InflectMiddleNameTest extends TestCase
         }
     }
 
+    /**
+     * @throws Petrovich\ValidationException
+     * @throws Petrovich\IOException
+     * @throws Exception
+     * @throws Petrovich\RuntimeException
+     */
     public function testShouldCallDetectGenderOnlyIfNotProvided()
     {
         $petrovich = new Petrovich(Petrovich\Loader::load(Petrovich\Loader::getVendorRulesFilePath()));
 
         $names = [
             'Сергеевич' => [
-                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Сергеевич',
-                Petrovich\Ruleset::CASE_GENITIVE      => 'Сергеевич',
-                Petrovich\Ruleset::CASE_DATIVE        => 'Сергеевич',
-                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Сергеевич',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Сергеевич',
+                Petrovich\Ruleset::CASE_NOMENATIVE => 'Сергеевич',
+                Petrovich\Ruleset::CASE_GENITIVE => 'Сергеевич',
+                Petrovich\Ruleset::CASE_DATIVE => 'Сергеевич',
+                Petrovich\Ruleset::CASE_ACCUSATIVE => 'Сергеевич',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL => 'Сергеевич',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Сергеевич',
             ],
             'Сергеевна' => [
-                Petrovich\Ruleset::CASE_NOMENATIVE    => 'Сергеевна',
-                Petrovich\Ruleset::CASE_GENITIVE      => 'Сергеевны',
-                Petrovich\Ruleset::CASE_DATIVE        => 'Сергеевне',
-                Petrovich\Ruleset::CASE_ACCUSATIVE    => 'Сергеевну',
-                Petrovich\Ruleset::CASE_INSTRUMENTAL  => 'Сергеевной',
+                Petrovich\Ruleset::CASE_NOMENATIVE => 'Сергеевна',
+                Petrovich\Ruleset::CASE_GENITIVE => 'Сергеевны',
+                Petrovich\Ruleset::CASE_DATIVE => 'Сергеевне',
+                Petrovich\Ruleset::CASE_ACCUSATIVE => 'Сергеевну',
+                Petrovich\Ruleset::CASE_INSTRUMENTAL => 'Сергеевной',
                 Petrovich\Ruleset::CASE_PREPOSITIONAL => 'Сергеевне',
             ],
         ];

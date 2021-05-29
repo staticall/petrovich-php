@@ -1,11 +1,11 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
 use PHPUnit\Framework\TestCase;
 
-use Staticall\Petrovich\Petrovich\Ruleset;
-
-class AvailablesTest extends TestCase
+class AvailableTest extends TestCase
 {
     public function testAvailableCasesShouldReturnCorrectAmount()
     {

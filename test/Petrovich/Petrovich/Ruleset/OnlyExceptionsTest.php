@@ -1,12 +1,18 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\ValidationException;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Ruleset;
+use ReflectionClass;
+use ReflectionException;
 
 class OnlyExceptionsTest extends TestCase
 {
+    /**
+     * @throws ValidationException
+     */
     public function testHasNoExceptionsAndUndefined()
     {
         $ruleset = new Ruleset([], false);
@@ -25,6 +31,9 @@ class OnlyExceptionsTest extends TestCase
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasNoExceptionsButDefined()
     {
         $ruleset = new Ruleset([], false);
@@ -45,19 +54,23 @@ class OnlyExceptionsTest extends TestCase
         );
     }
 
+    /**
+     * @throws ValidationException
+     * @throws ReflectionException
+     */
     public function testExceptionShouldOnlyRunOnSecond()
     {
         $ruleset = new Ruleset([], false);
 
-        $name   = 'Юлия';
+        $name = 'Юлия';
         $gender = Ruleset::GENDER_FEMALE;
 
         $expected = [
-            Ruleset::CASE_NOMENATIVE    => 'Юлия',
-            Ruleset::CASE_GENITIVE      => 'Юлии',
-            Ruleset::CASE_DATIVE        => 'Юлие',
-            Ruleset::CASE_ACCUSATIVE    => 'Юлию',
-            Ruleset::CASE_INSTRUMENTAL  => 'Юлией',
+            Ruleset::CASE_NOMENATIVE => 'Юлия',
+            Ruleset::CASE_GENITIVE => 'Юлии',
+            Ruleset::CASE_DATIVE => 'Юлие',
+            Ruleset::CASE_ACCUSATIVE => 'Юлию',
+            Ruleset::CASE_INSTRUMENTAL => 'Юлией',
             Ruleset::CASE_PREPOSITIONAL => 'Юлии',
         ];
 
@@ -96,7 +109,7 @@ class OnlyExceptionsTest extends TestCase
                         ],
                     ],
                 ],
-            ]
+            ],
         ];
 
         $ruleset->setRules($rules, false);
@@ -106,7 +119,7 @@ class OnlyExceptionsTest extends TestCase
 
             // Because nomenative case is weird
             if ($case !== Ruleset::CASE_NOMENATIVE) {
-                $reflectionClass = new \ReflectionClass($ruleset);
+                $reflectionClass = new ReflectionClass($ruleset);
 
                 $getException = $reflectionClass->getMethod('getException');
 

@@ -1,12 +1,16 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset;
 
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset;
+
+use Masterweber\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\ValidationException;
 use PHPUnit\Framework\TestCase;
-
-use Staticall\Petrovich\Petrovich\Ruleset;
 
 class ValidateTest extends TestCase
 {
+    /**
+     * @throws ValidationException
+     */
     public function testOnlyAvailableRootKeys()
     {
         $ruleset = new Ruleset([], false);
@@ -20,6 +24,9 @@ class ValidateTest extends TestCase
         static::assertTrue($ruleset->validate($rules));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testUnknownRootKey()
     {
         $ruleset = new Ruleset([], false);
@@ -31,6 +38,9 @@ class ValidateTest extends TestCase
         static::assertFalse($ruleset->validate($rules));
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testMixedBothKnownAndUnknownRootKeys()
     {
         $ruleset = new Ruleset([], false);
@@ -49,7 +59,7 @@ class ValidateTest extends TestCase
 
         $rules = [
             Ruleset::ROOT_KEY_FIRSTNAME => [],
-            'unknownRootKey'            => [],
+            'unknownRootKey' => [],
         ];
 
         static::assertFalse($ruleset->validate($rules));

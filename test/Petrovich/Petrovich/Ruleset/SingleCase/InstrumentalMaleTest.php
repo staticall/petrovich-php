@@ -1,15 +1,19 @@
 <?php
-namespace StaticallTest\Petrovich\Petrovich\Ruleset\SingleCase;
 
-use StaticallTest\Petrovich\Petrovich\Ruleset\SingleCaseHelper;
+namespace Masterweber\Test\Petrovich\Petrovich\Ruleset\SingleCase;
 
-use Staticall\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\Ruleset;
+use Masterweber\Petrovich\Petrovich\ValidationException;
+use Masterweber\Test\Petrovich\Petrovich\Ruleset\SingleCaseHelper;
 
 class InstrumentalMaleTest extends SingleCaseHelper
 {
-    const THIS_CASE   = Ruleset::CASE_INSTRUMENTAL;
+    const THIS_CASE = Ruleset::CASE_INSTRUMENTAL;
     const THIS_GENDER = Ruleset::GENDER_MALE;
 
+    /**
+     * @throws ValidationException
+     */
     public function testNoExceptionsNoSuffixes()
     {
         $this->runTestNoExceptionsNoSuffixes(
@@ -20,6 +24,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsGenderWrong1NoSuffixes()
     {
         $this->runTestHasExceptionsGenderWrong1NoSuffixes(
@@ -30,6 +37,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsGenderWrong2NoSuffixes()
     {
         $this->runTestHasExceptionsGenderWrong2NoSuffixes(
@@ -40,6 +50,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsCorrectGenderNoSuffixes()
     {
         $this->runTestHasExceptionsCorrectGenderNoSuffixes(
@@ -50,6 +63,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsCorrectGenderAfterIncorrectNoSuffixes()
     {
         $this->runTestHasExceptionsCorrectGenderAfterIncorrectNoSuffixes(
@@ -60,6 +76,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsAndSuffixes()
     {
         $this->runTestHasExceptionsAndSuffixes(
@@ -70,6 +89,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testHasExceptionsAndSuffixesReverseOrder()
     {
         $this->runTestHasExceptionsAndSuffixesReverseOrder(
@@ -80,6 +102,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testNoExceptionsHasSuffixes()
     {
         $this->runTestNoExceptionsHasSuffixes(
@@ -90,6 +115,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testNoExceptionsHasSuffixesDotMod()
     {
         $this->runTestNoExceptionsHasSuffixesDotMod(
@@ -100,6 +128,9 @@ class InstrumentalMaleTest extends SingleCaseHelper
         );
     }
 
+    /**
+     * @throws ValidationException
+     */
     public function testIncorrectInputShouldReturnInput()
     {
         $this->runTestIncorrectInputShouldReturnInput(
